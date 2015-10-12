@@ -1,0 +1,112 @@
+#menu_area_interna {
+    width:100%;
+}
+
+#form-login {
+    width:500px;
+    margin-top: 40px;
+}
+
+.menu_interno {
+    margin-bottom:100px;
+    padding:0;
+    margin:0 !important;
+    width:100%;
+}
+
+.menu_interno li {
+    float:left;
+    display:inline-block;
+    margin:0 !important;
+    padding:0 !important;
+    width:50%;
+    min-width:320px;
+    height:190px;
+}
+
+@media screen and (max-width: 980px) {
+    .menu_interno li {width:100%;}
+}
+    
+.menu_interno li a {
+    /*text-align:right;*/
+    display:block;
+    width:100%;
+    height:100%;
+    padding:15px;
+    margin:auto;
+    color:#FFF;
+    text-decoration:none;
+    font-size:30px;
+    line-heigh:20px;
+
+}
+
+
+
+.menu_interno li a:hover {
+
+  border:10px solid #FFF;
+  /*Transition*/
+  -webkit-transition: border 0.4s ease;
+  -moz-transition: border 0.4s ease;
+  -o-transition: border 0.4s ease;
+  transition: border 0.4s ease;
+  text-decoration:none;
+
+}
+
+.menu_interno li a img {
+    float:left;
+    width:120px;
+    margin-right:10px;
+}
+
+.menu_interno .acadastro {
+    background:#0097A7;
+}
+
+.menu_interno .amedalhas {
+    background:#FFC107;
+}
+
+.menu_interno .asolicitacao {
+    background:#F44336;
+}
+
+.menu_interno .asolicitacoes {
+    background:#03A9F4;
+}
+
+.menu_interno .aevento {
+    background:#8BC34A;
+}
+
+.menu_interno .aeventos {
+    background:#727272;
+}
+
+#dv-login {
+    margin:0 auto;
+    width:400px;
+}
+
+.alinhadoDireita {   
+    padding:0 50px;
+    text-align:right;
+}
+
+#controles {width:300px;margin:0 auto;padding:0;}
+#btn-login {width:100%;}
+#btn-login-facebook, #btn-login-gplus, #btn-login-twitter {width:100%;}
+
+
+.a-esqueceu-senha {
+    display:block;
+    text-align:center;
+    margin-top:10px;
+}
+
+.btnWith100 {
+    width:100%;
+}

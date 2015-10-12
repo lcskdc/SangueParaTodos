@@ -1,0 +1,135 @@
+
+.noFloat {
+    clear:both;
+    float:none;
+}
+
+#menu-sup {
+    margin-bottom:20px;
+    width:100%;
+    background:#D71820;
+    -webkit-box-shadow: inset 0px 0px 10px 3px rgba(173,22,22,1);
+    -moz-box-shadow: inset 0px 0px 10px 3px rgba(173,22,22,1);
+    box-shadow: inset 0px 0px 10px 3px rgba(173,22,22,1);
+}
+
+#menu-sup .menu {
+    text-align:center;
+    min-height:70px;
+    padding:0;
+    margin:0;
+}
+
+#menu-sup li {
+    font-size: 22px;
+    line-height:70px;
+    display:inline-block;
+    text-align:center;
+    color:#FFF;
+}
+
+@media screen and (max-width: 980px) {
+    #menu-sup li {
+        display:block;
+    }
+}
+
+#menu-sup a:hover {
+    color:#FFF;
+    text-decoration:none;
+    text-shadow: 0px 0px 2px rgba(255, 255, 255, 1);
+    /*background:url('/img/coracao_batendo.gif') no-repeat 5px center;*/
+}
+
+
+.img-logo {
+    display:block;
+    width:100%;
+    text-align:center;
+    background:url("/img/logo.png") no-repeat center bottom;
+    background-size: 90% auto;
+    height:110px;
+}
+
+@media screen and (max-width: 540px) {
+    .img-logo {background:url("/img/logo-menor.png") no-repeat center bottom;}
+    .dv-home-mapa, #dv-home .dv-ranking {width:100% !important;float:none !important;}
+    .btn_facebook {width:100%;margin:0;}
+}
+
+button {
+  border: none;
+}
+
+.escondido {
+  display: none;
+}
+
+#dv-info-user {
+    position:relative;
+    height:60px;
+    width:100%;
+    margin:0 auto;
+    padding-top:10px;
+}
+
+#dv-info-user .dv-info {
+    float:right;
+    text-align:right;
+    padding-right:30px;
+}
+
+#dv-info-user .img_col {
+    width:60px;
+    float:right;
+}
+
+#dv-info-user a {
+    color:#006699;
+}
+
+#dv-info-user .nm_col {
+    width:160px;
+    line-height:20px;
+}
+
+.badge-indica-restante {
+    position:absolute;
+    top:-2px;
+    width:100%;
+    padding:2px 4px;
+    text-align:center;
+}
+
+.badge-indica-restante div {
+    display:inline-block;
+    padding:0 10px;
+}
+
+.dv-info-pontuacao {
+    background:url('/img/medalha.png') no-repeat center;
+    background-size:34px;
+    width:34px;
+    height:34px;
+    text-align:center;
+    font-size:10px;
+    padding-top:7px;
+    text-decoration:none !important;
+    color:#000;
+}
+
+.dv-informacoes a {
+    float:right;
+    display:inline-block;
+}
+
+.dv-informacoes {
+    width:160px;
+    height:60px;
+}
+
+#btn-sair {
+    position:absolute;
+    margin-left:50px;
+    margin-top:34px;
+}

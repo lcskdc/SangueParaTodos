@@ -1,0 +1,64 @@
+#frmDemanda {
+    width:500px;
+}
+
+#descricao {
+    height:100px;
+}
+
+#doadores {
+    width:90px;
+}
+
+#validade {
+    width:130px;
+}
+
+#mapa_controles {
+    padding:10px;
+}
+
+#local {
+    border:1px solid #A9C6E2;
+    font-size:14px;
+    padding:6px 10px;
+    width:75%;
+}
+
+#mapa {
+    position:absolute;
+    margin:0 auto;
+    width:100%;
+    bottom:0;
+    top:53px;
+    border:1px solid #000;
+}
+
+.localNaoEncontrado {
+    background:#FDE3E3;
+    border:1px solid #F9A2A2;
+}
+
+.local {padding-bottom:10px;}
+
+#aBuscaLocal, #imgLoading {
+    position:absolute;
+    margin-left:-26px;
+    margin-top:6px;
+}
+
+#imgLoading {display:none;}
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; cursor:pointer; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+.msgDemanda {
+   width:500px;margin:0 auto;padding-top:60px;
+}
+
+.msgDemanda p {text-align:center;}
+
