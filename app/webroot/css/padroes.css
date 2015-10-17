@@ -380,3 +380,12 @@
 .dv-controles-rodape .separador {
     margin:0 25px;
 }
+
+.msgs-portal {
+    width:50%;
+    border:1px solid #000;
+    position:fixed;
+    left:50%;
+    margin-left:-25%;
+    top:100px;
+}

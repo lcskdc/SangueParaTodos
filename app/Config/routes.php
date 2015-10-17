@@ -28,10 +28,19 @@
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
+    
+    $uri = $_SERVER['REQUEST_URI'];
+    $nuri = preg_replace('/[^0-9a-zA-Z\/]/','',$uri);
+    
+    if($uri!=$nuri) {
+      $parts = explode('/',str_replace(' ','/',trim(str_replace('/',' ',$nuri))));
+      Router::connect($uri, array('controller' => $parts[0], 'action' => isset($parts[1])?$parts[1]:'index'));
+    }
+    
+    
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
-        
-        Router::connect('/politica-de-privacidade', array('controller' => 'Seguranca', 'action' => 'privacidade'));
-        Router::connect('/termos-de-uso', array('controller' => 'Seguranca', 'action' => 'termo'));
+    Router::connect('/politica-de-privacidade', array('controller' => 'Seguranca', 'action' => 'privacidade'));
+    Router::connect('/termos-de-uso', array('controller' => 'Seguranca', 'action' => 'termo'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

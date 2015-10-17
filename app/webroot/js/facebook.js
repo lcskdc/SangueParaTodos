@@ -1,3 +1,4 @@
+var user_id = null;
 var fbPicture = null;
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
@@ -38,7 +39,7 @@ window.fbAsyncInit = function() {
         appId: '560560374073693',
         cookie: true, // enable cookies to allow the server to access 
         xfbml: true, // parse social plugins on this page
-        version: 'v2.4' // use version 2.1
+        version: 'v2.1' // use version 2.1
     });
     checkLoginState();
 };
@@ -49,21 +50,6 @@ function facebookLogout() {
     });
 }
 
-function onFriendsListLoaded(response)
-{
-  var divTarget=document.getElementById("friends-list-container");
-  var data=response.data;
-  //alert("divTarget="+divTarget+"ndata="+data);
-  for (var friendIndex=0; friendIndex<data.length; friendIndex++)
-  {
-      console.log(friendIndex);
-    var divContainer = document.createElement("div");
-    divContainer.innerHTML="<hr><img src='http://graph.facebook.com/"+data[friendIndex].id+"/picture'></img>"+
-"<br>"+data[friendIndex].name;
-    divTarget.appendChild(divContainer);
-  }
-}
- 
 /**
  * 
  * @returns {facebook login response}
@@ -75,23 +61,26 @@ function facebookLogin(callback) {
             user_id = response.authResponse.userID; //get FB UID
             url_img = "";
             FB.api('/me', function(response) {
-
-                FB.api('/me/friends', onFriendsListLoaded);
-                /*    
-                 FB.api('/me/?fields=picture', function(resp) {
-                 url_img = resp.picture.data.url;
-                 var data = {email: response.email, nome: response.name, id: response.id, sexo: response.gender, urlImagem: url_img, tipo: 'facebook'}
-                 console.log(callback);
-                 efetuaLoginSocial(data, callback);
-                 });
-                 */
+                FB.api('/me/?fields=picture', function(resp) {
+                    url_img = resp.picture.data.url;
+                    var data = {email: response.email, nome: response.name, id: response.id, sexo: response.gender, urlImagem: url_img, tipo: 'facebook'}
+                    efetuaLoginSocial(data, callback);
+                });
             });
 
         }
     }, {
-        scope: 'public_profile,email,publish_actions,user_friends'
+        scope: 'public_profile,email,user_friends,read_custom_friendlists'
     });
 }
+
+function testeAquireFriends() {
+    console.log('user_id: '+$('#id-user').val());
+    FB.api('/'+$('#id-user').val()+'/friendlists', function(resp) {
+        console.log(resp);
+    });
+}
+
 /**
  * Insere script Facebook Assincrono
  * @param {type} d
@@ -108,13 +97,6 @@ function facebookLogin(callback) {
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
-function sortMethod(a, b) {
-    var x = a.name.toLowerCase();
-    var y = b.name.toLowerCase();
-    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-}
-
 
 /**
  * Método que retorna o objeto Usuário DO Facebook
@@ -135,7 +117,7 @@ function compartilharSolicitacao(colaborador_id, solicitacao_id) {
         var params = {};
         var rnd_img = Math.ceil(Math.random() * 5);
         var server = 'www.sangueparatodos.com.br';
-        server = 'localhost:9090';
+        //server = 'localhost:9090';
 
         params['message'] = 'Doe sangue e salve vidas';
         params['name'] = 'Doação de sangue';
@@ -181,7 +163,7 @@ function efetuaLoginSocial(send, callback) {
             console.log('executou callback');
             callback();
         } else {
-            //document.location.href = '/Login/interno/';
+            document.location.href = '/Login/interno/';
         }
     });
 }

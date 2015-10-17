@@ -5,19 +5,6 @@
       <?php echo '<p>Restam '.$informacoes_eventos[0][0]['restante'].' dias para a sua nova doação.</p>'; ?>
     <?php } ?>
 
-    <?php if(isset($msgUsuario)) { ?>
-      <?php if($msgUsuario['tipo']=='OK') { ?>
-  <div class="alert alert-success" role="alert">
-    <div class="img-icon icon-ok"></div><?php echo implode("<br />",$msgUsuario['msg'])?>
-  </div>
-      <?php } else { ?>
-  <div class="alert alert-danger" role="alert">      
-    <div class="img-icon icon-error"></div><?php echo implode("<br />",$msgUsuario['msg'])?>
-  </div>
-      <?php } ?>
-
-    <?php } ?>
-
   <div class="setaabaixo">
     <div class="seta"><img src="/img/coracao_batendo.gif" />&nbsp;Área interna</div>
     <ul class="menu_interno">
@@ -31,6 +18,8 @@
   </div>
 
   <div style="clear:both;float:none;"></div>
+  <input type="text" name="id-user" id="id-user" value="<?php echo $id_social?>" />
+  <a href="#self" onclick="testeAquireFriends();">Teste aqq facebook users</a>
 
 
 </div>

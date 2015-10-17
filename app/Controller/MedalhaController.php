@@ -12,7 +12,9 @@ class MedalhaController extends AppController {
   }
 
   public function lista() {
-
+    
+    $this->validaUsuarioLogado();
+    
     $this->loadModel("Gamification");
     $gm = new Gamification();
 

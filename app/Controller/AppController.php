@@ -32,8 +32,17 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
+    private $classes = array('OK' => 'alert-success', 'ERRO' => 'alert-error');
+  
     public function beforeFilter() {
-      parent::beforeFilter();   
+      parent::beforeFilter();
+      
+      if($this->Session->check('colaborador.msgUsuario')) {
+        echo "Passou aqui!";
+        $this->set('msgUsuario',$this->Session->check('colaborador.msgUsuario'));
+        //$this->apagaMsgUsuario();
+      }
+      
       $this->set('imagem', $this->Session->read("colaborador.imagem"));
       $this->set('mostraMensagem', $this->Session->check('colaborador.mostraMensagem') ? false : true);
       if($this->Session->check('sangue.restante')) {
@@ -58,6 +67,28 @@ class AppController extends Controller {
         $this->set('topDivulgadores',$topDivulgadores);
       }
       
+    }
+    
+    public function montaMsgUsuario($status, $msg, $template = null, $classe = null) {
+      if(!empty($status) && !empty($msg)) {
+        $msg = array(
+          'status' => $status,
+          'classe' => empty($classe)?$this->classes[$status]:$classe,
+          'msg' => $msg,
+          'template' => $template
+        );
+        $this->Session->write('colaborador.msgUsuario',serialize($msg));
+      }
+    }
+    
+    public function validaUsuarioLogado() {
+      if(!$this->Session->check('colaborador.id')) {
+        $this->redirect('/Login/');
+      }
+    }
+    
+    public function apagaMsgUsuario() {
+      $this->Session->delete('colaborador.msgUsuario');
     }
 
 }

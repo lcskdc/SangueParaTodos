@@ -15043,3 +15043,906 @@ Request URL: /js/seguranca.js
 Stack Trace:
 #0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2015-10-13 23:15:28 Error: [MissingControllerException] Controller class Medalha;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Medalha;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Medalha;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:15:30 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/medalha%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:15:30 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/medalha%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:15:30 Error: [MissingViewException] View file "F:\projetos\sangue\app\View\Medalha\index.ctp" is missing.
+Exception Attributes: array (
+  'file' => 'F:\\projetos\\sangue\\app\\View\\Medalha\\index.ctp',
+)
+Request URL: /Medalha/
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\View\View.php(468): View->_getViewFileName(NULL)
+#1 F:\projetos\sangue\lib\Cake\Controller\Controller.php(954): View->render(NULL, NULL)
+#2 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(198): Controller->render()
+#3 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(MedalhaController), Object(CakeRequest))
+#4 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2015-10-13 23:15:31 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/medalha.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:15:31 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/medalha.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:15:34 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/medalha.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:15:34 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/medalha.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:22:15 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/medalha.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:22:15 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/medalha.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:22:37 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/medalha.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:22:37 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/medalha.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:23:22 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/medalha.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:23:22 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/medalha.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:26:02 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/medalha.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:26:02 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/medalha.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:26:04 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:26:04 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:41:14 Error: Fatal Error (1): Call to private method AppController::validaUsuarioLogado() from context 'LoginController' in [F:\projetos\sangue\app\Controller\LoginController.php, line 547]
+2015-10-13 23:41:15 Error: [FatalErrorException] Call to private method AppController::validaUsuarioLogado() from context 'LoginController'
+Request URL: /Login/interno/
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to private...', 'F:\projetos\san...', 547)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to private...', 'F:\projetos\san...', 547, Array)
+#2 F:\projetos\sangue\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to private...', 'F:\projetos\san...', 547, Array)
+#3 F:\projetos\sangue\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2015-10-13 23:41:33 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/medalha.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:41:33 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/medalha.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:41:39 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/evento.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-13 23:41:42 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/evento.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-14 00:30:40 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/medalha.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-14 00:30:40 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/medalha.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-14 00:39:07 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/medalha.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-14 00:39:07 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/medalha.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:43:39 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:43:39 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:51:03 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:51:03 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:52:03 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:52:03 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:52:37 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:52:37 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:53:48 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:53:48 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:55:43 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:55:44 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:59:14 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:59:14 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:59:30 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:59:30 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:59:36 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:59:36 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 14:59:36 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:01:26 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:01:27 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:01:27 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:01:58 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:01:59 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:01:59 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:03:04 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:03:05 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:03:05 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:03:31 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:03:32 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:03:32 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:03:55 Error: Fatal Error (1): Using $this when not in object context in [F:\projetos\sangue\app\Config\routes.php, line 36]
+2015-10-17 15:03:55 Error: [FatalErrorException] Using $this when not in object context
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Using $this whe...', 'F:\projetos\san...', 36)
+#1 [internal function]: ErrorHandler::handleError(1, 'Using $this whe...', 'F:\projetos\san...', 36, Array)
+#2 F:\projetos\sangue\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Using $this whe...', 'F:\projetos\san...', 36, Array)
+#3 F:\projetos\sangue\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2015-10-17 15:03:56 Error: Fatal Error (1): Using $this when not in object context in [F:\projetos\sangue\app\Config\routes.php, line 36]
+2015-10-17 15:03:56 Error: Fatal Error (1): Using $this when not in object context in [F:\projetos\sangue\app\Config\routes.php, line 36]
+2015-10-17 15:03:56 Error: [FatalErrorException] Using $this when not in object context
+Request URL: /js/.js
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Using $this whe...', 'F:\projetos\san...', 36)
+#1 [internal function]: ErrorHandler::handleError(1, 'Using $this whe...', 'F:\projetos\san...', 36, Array)
+#2 F:\projetos\sangue\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Using $this whe...', 'F:\projetos\san...', 36, Array)
+#3 F:\projetos\sangue\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2015-10-17 15:03:56 Error: [FatalErrorException] Using $this when not in object context
+Request URL: /css/.css
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Using $this whe...', 'F:\projetos\san...', 36)
+#1 [internal function]: ErrorHandler::handleError(1, 'Using $this whe...', 'F:\projetos\san...', 36, Array)
+#2 F:\projetos\sangue\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Using $this whe...', 'F:\projetos\san...', 36, Array)
+#3 F:\projetos\sangue\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2015-10-17 15:11:14 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:11:14 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:11:14 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:12:11 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:12:11 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:12:11 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:12:32 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:12:42 Error: [MissingActionException] Action LoginController::interno;() could not be found.
+Exception Attributes: array (
+  'controller' => 'LoginController',
+  'action' => 'interno;',
+)
+Request URL: /Login/interno;
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(LoginController), Object(CakeRequest))
+#2 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2015-10-17 15:13:33 Error: [MissingActionException] Action LoginController::interno;() could not be found.
+Exception Attributes: array (
+  'controller' => 'LoginController',
+  'action' => 'interno;',
+)
+Request URL: /Login/interno;
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(LoginController), Object(CakeRequest))
+#2 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2015-10-17 15:13:38 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:13:39 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:13:39 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:07 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:07 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:07 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:29 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:30 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:30 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:45 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:46 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:46 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:54 Error: [MissingControllerException] Controller class Login;Controller could not be found.
+Exception Attributes: array (
+  'class' => 'Login;Controller',
+  'plugin' => NULL,
+)
+Request URL: /Login;
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:55 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/login%3B.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:14:55 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/login%3B.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:15:33 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:15:33 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:15:34 Error: [MissingActionException] Action LocalController::locusuario() could not be found.
+Exception Attributes: array (
+  'controller' => 'LocalController',
+  'action' => 'locusuario',
+)
+Request URL: /Local/loc_usuario
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(LocalController), Object(CakeRequest))
+#2 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2015-10-17 15:15:41 Error: [MissingActionException] Action LocalController::locusuario() could not be found.
+Exception Attributes: array (
+  'controller' => 'LocalController',
+  'action' => 'locusuario',
+)
+Request URL: /Local/loc_usuario
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(LocalController), Object(CakeRequest))
+#2 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2015-10-17 15:16:00 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:16:00 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:16:02 Error: [MissingActionException] Action LocalController::locusuario() could not be found.
+Exception Attributes: array (
+  'controller' => 'LocalController',
+  'action' => 'locusuario',
+)
+Request URL: /Local/loc_usuario
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(LocalController), Object(CakeRequest))
+#2 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2015-10-17 15:28:53 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:28:53 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:28:54 Error: [MissingActionException] Action LocalController::locusuario() could not be found.
+Exception Attributes: array (
+  'controller' => 'LocalController',
+  'action' => 'locusuario',
+)
+Request URL: /Local/loc_usuario
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(LocalController), Object(CakeRequest))
+#2 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2015-10-17 15:31:31 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/pages.css
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:31:31 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/pages.js
+Stack Trace:
+#0 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-10-17 15:31:33 Error: [MissingActionException] Action LocalController::locusuario() could not be found.
+Exception Attributes: array (
+  'controller' => 'LocalController',
+  'action' => 'locusuario',
+)
+Request URL: /Local/loc_usuario
+Stack Trace:
+#0 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#1 F:\projetos\sangue\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(LocalController), Object(CakeRequest))
+#2 F:\projetos\sangue\app\webroot\index.php(107): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}

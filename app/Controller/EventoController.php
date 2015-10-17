@@ -34,6 +34,8 @@ class EventoController extends AppController {
 
   public function cadastro() {
     
+    $this->validaUsuarioLogado();
+    
     if ($this->request->isPost()) {
       
       $data = '';
@@ -79,8 +81,7 @@ class EventoController extends AppController {
         
         $prazo = $tpEvento['TipoEvento']['prazo'];
         $this->Session->write('sangue.restante',$prazo);
-        
-        $this->Session->write('colaborador.msgUsuario', serialize(array('tipo' => 'OK', 'msg' => array('Evento registrado'))));
+        $this->montaMsgUsuario('OK', 'Evento registrado');
         $this->redirect("/Login/interno/");
       } else {
         $errors = $this->Evento->validationErrors;
@@ -98,6 +99,9 @@ class EventoController extends AppController {
   }
 
   public function excluir() {
+    
+    $this->validaUsuarioLogado();
+    
     $this->autoRender = false;
     if ($this->request->isPost()) {
       if ($this->request->data('id') > 0) {

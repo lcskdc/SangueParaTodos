@@ -53,6 +53,12 @@ $imagem = $this->Session->read("colaborador.imagem");
     </head>
     <body>
 
+        <?php if(isset($msgUsuario)) { ?>
+          <div class="msgs-portal alert <?php echo $msgUsuario['classe']?>" role="alert">
+            <div class="img-icon icon-ok"></div><?php echo $msgUsuario['msg']?>
+          </div>
+        <?php } ?>
+      
         <div id="container">
           <!-- imagem cache -->  
           <img class="imagem-cache" src="/img/coracao_batendo.gif" />
@@ -128,14 +134,17 @@ $imagem = $this->Session->read("colaborador.imagem");
               </div>
             </div>
           </div>          
-          
+
         </div>
+      
         <!--?php echo $this->element('sql_dump'); ?-->
         <div id="footer">
             <div>
-                <p>Projeto Sangue Para Todos</p>
-                <p>Desenvolvido por Lucas Pacheco Oliveira - Senac RS</p>
+              <p>Projeto Sangue Para Todos</p>
+              <p>Desenvolvido por Lucas Pacheco Oliveira - Senac RS</p>
+              <p><a href="/termos-de-uso">Termos de uso</a> | <a href="/politica-de-privacidade">Política de privacidade</a></p>
             </div>
         </div>
+
     </body>
 </html>

@@ -189,7 +189,8 @@ class LoginController extends AppController {
           $this->Colaborador->save();
           $colaborador_id = $this->Colaborador->getLastInsertId();
           $cadastro['Colaborador']['id'] = $colaborador_id;
-          $this->Session->write('colaborador.msgUsuario', serialize(array('tipo' => 'OK', 'msg' => array('Olá ' . $this->request->data('nome') . ', Obrigado pelo seu cadastro. É necessário que você valide seu cadastro através do e-mail que lhe enviamos.'))));
+          
+          $this->montaMsgUsuario('OK', 'Olá ' . $this->request->data('nome') . ', Obrigado pelo seu cadastro. É necessário que você valide seu cadastro através do e-mail que lhe enviamos.');
           $this->enviaEmailAtivacaoCadastro($cadastro['Colaborador']);
           $this->redirect("/Login/interno/");
         } else {
@@ -362,6 +363,10 @@ class LoginController extends AppController {
       $this->Session->write('colaborador.cidade', $Colaborador['cidade']);
       $this->Session->write('colaborador.nome_cidade', $resp['Cidade']['nome']);
       $this->Session->write('colaborador.uf', $resp['Estado']['uf']);
+    }
+    
+    if(isset($Colaborador['id_social'])) {
+      $this->Session->write('colaborador.id_social', $Colaborador['id_social']);
     }
     
     $this->Session->write('colaborador.ativo', $Colaborador['ativo']);
@@ -539,13 +544,20 @@ class LoginController extends AppController {
   }
 
   function interno() {
+    
+    $this->montaMsgUsuario('OK', 'MENSAGEM TESTE');
+    
+    $this->validaUsuarioLogado();
+    
     $id_colaborador = $this->Session->read('colaborador.id');
+    $id_social = $this->Session->check('colaborador.id_social')?$this->Session->read('colaborador.id_social'):0;
 
     if (!$id_colaborador > 0) {
       $this->redirect('/Login');
     }
     
     $this->set('id_colaborador',$id_colaborador);
+    $this->set('id_social',$id_social);
 
     if ($this->Session->check('colaborador.msgUsuario')) {
       $this->set('msgUsuario', unserialize($this->Session->read('colaborador.msgUsuario')));
