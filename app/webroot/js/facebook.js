@@ -39,7 +39,7 @@ window.fbAsyncInit = function() {
         appId: '560560374073693',
         cookie: true, // enable cookies to allow the server to access 
         xfbml: true, // parse social plugins on this page
-        version: 'v2.1' // use version 2.1
+        version: 'v2.5' // use version 2.1
     });
     checkLoginState();
 };
@@ -76,9 +76,14 @@ function facebookLogin(callback) {
 
 function testeAquireFriends() {
     console.log('user_id: '+$('#id-user').val());
-    FB.api('/'+$('#id-user').val()+'/friendlists', function(resp) {
+    FB.api('/'+$('#id-user').val()+'/friends/1920491531508647', function(resp) {
         console.log(resp);
     });
+    
+    FB.api('/me/friends', function(resp) {
+        console.log(resp);
+    });    
+    
 }
 
 /**

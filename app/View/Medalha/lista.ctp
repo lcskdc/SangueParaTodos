@@ -65,14 +65,54 @@ echo $this->Html->css('demanda');
     background: #f6f6f6;
   }
   
+  .img-maos-dadas {
+    width:100%;
+    height:70px;
+    background:url('/img/img_maos_dadas.png') repeat-x;
+    position:relative;
+  }
+  
+  #dv-badges-indicador-maos-dadas {
+    border:1px solid #000;
+    width:70%;
+    margin:0 auto;
+    
+  }
+  
+  #dv-badges-indicador-maos-dadas .indicador-maos-dadas {
+    float:left;
+    width:455px;
+    margin:0 auto;
+    background:#EFEFEF;
+  }
+  
+  #dv-badges-indicador-maos-dadas .indicador-maos-dadas .dv-fundo {
+    float:left;
+    height:70px;
+  }
+  
+  #dv-badges-indicador-maos-dadas .indicador-maos-dadas .dv-fundo-vermelho {
+    background:#D62A2A;
+    border:1px solid #D62A2A;
+    width:70%;
+  }
+  
 </style>
+
+<div id="dv-badges-indicador-maos-dadas">
+  <div class="indicador-maos-dadas">
+    <div class="dv-fundo dv-fundo-vermelho"></div>
+    <div class="img-maos-dadas"></div>
+  </div>
+  <img src="/img/img-igual.png" />
+</div>
 
 <div id="lista_pontuacao">
   <?php
   
   $pontos = 0;
   
-  if($lst_pontos) {   ?>
+  if($lst_pontos) { ?>
   <h2>Sua pontuação</h2>
   <table>
     <thead>

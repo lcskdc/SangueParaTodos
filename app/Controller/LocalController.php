@@ -7,8 +7,8 @@ class LocalController extends AppController {
   public $helpers = array('Js' => array('Jquery', 'Ajax'));
 
   public function index() {
-    $latitude = "-30.06324950";
-    $longitude = "-51.17878120";
+    //$latitude = "-30.06324950";
+    //$longitude = "-51.17878120";
     $distancia = 10;
     $this->Local->useTable = "locais";
     $this->Local->recursive = 1;
@@ -88,12 +88,12 @@ class LocalController extends AppController {
     //$this->loadModel('Gamification');
     
     if( $this->Session->check('colaborador.lat') && $this->Session->check('colaborador.lng') ) {
-        $latitude  = $ret['latitude'];
-        $longitude = $ret['longitude']; 
-    } else {
-        $latitude  = $ret['latitude'];
-        $longitude = $ret['longitude'];
-        $distancia = $ret['distancia'];
+      $latitude  = $ret['latitude'];
+      $longitude = $ret['longitude']; 
+    } else if(isset($ret)){
+      $latitude  = $ret['latitude'];
+      $longitude = $ret['longitude'];
+      $distancia = $ret['distancia'];
     }
     
     if($consulta_locais) {
@@ -234,6 +234,8 @@ class LocalController extends AppController {
   private function getLatLng() {
     $retorno = null;
     $retorno['distancia'] = 0;
+    //$retorno['latitude'] = "-30.06324950";
+    //$retorno['longitude'] = "-51.17878120";
 
     if ($this->Session->check("colaborador.lat") && $this->Session->check("colaborador.lng")) {
       //Obtem informações da latitude e longitude adquiridos na página inicial, via GeoLocation

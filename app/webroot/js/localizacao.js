@@ -23,8 +23,11 @@ function mostraMapa(position) {
 function errorHandler(err) {
     $.post('/Local/loc_usuario/', function(r) {
         jObj = $.parseJSON(r);
+        console.log(jObj);
         if (jObj.latitude != undefined && jObj.longitude != undefined) {
             exibirPosicoesMapa(jObj, false);
+        } else {
+            $('#modalAlteraEndereco').modal();
         }
     });
 }
@@ -38,8 +41,10 @@ function errorHandler(err) {
 function getLocalizacao() {
     console.log('passou aqui geoLocalização');
     if (navigator.geolocation) {
-        var options = {timeout: 60000}; //timeout de 60 seconds
+        var options = {timeout: 6000}; //timeout de 60 seconds
         navigator.geolocation.getCurrentPosition(mostraMapa, errorHandler, options);
+    } else {
+        $('#modalAlteraEndereco').modal();
     }
 }
 

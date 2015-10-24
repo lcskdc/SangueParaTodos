@@ -28,10 +28,10 @@ body {
     /*background: #CC0000;*/
     background:#FFF url(/img/doacao-de-sangue.jpg) no-repeat fixed;
     background-size:cover;
-    font-family: 'Muli', sans-serif;
+    font-family: 'Muli', sans-serif !important;
     /*font-size:2em;*/
     color:#53080c;
-    font-weight:normal;
+    font-weight:normal !important;
     margin: 0;
 }
 a img {

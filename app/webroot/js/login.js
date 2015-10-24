@@ -6,6 +6,10 @@ $(function() {
         facebookLogin();
         return false;
     });
+    
+    $('#aceite-termo-de-uso').change(function(){
+       $('#btn-login').prop('disabled',!$(this).prop('checked'));
+    });
 
     $('#alterar-senha').click(function() {
 

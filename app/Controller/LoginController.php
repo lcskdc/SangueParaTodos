@@ -124,9 +124,11 @@ class LoginController extends AppController {
         if($this->Session->check('colaborador')) {
           if($this->Session->read('colaborador.id') == $login['Colaborador']['id']) {
             $this->Session->write('colaborador.ativo','S');
+            $this->montaMsgUsuario('OK', 'Obrigado '.$login['Colaborador']['nome'].', seu e-mail foi validado.' );
           }
         }
         $this->salvaPontuacaoCadastro($login['Colaborador']['id'], $login['Colaborador']['id_indicacao']);
+        
       }
     }
     
@@ -189,15 +191,15 @@ class LoginController extends AppController {
           $this->Colaborador->save();
           $colaborador_id = $this->Colaborador->getLastInsertId();
           $cadastro['Colaborador']['id'] = $colaborador_id;
-          
-          $this->montaMsgUsuario('OK', 'Olá ' . $this->request->data('nome') . ', Obrigado pelo seu cadastro. É necessário que você valide seu cadastro através do e-mail que lhe enviamos.');
+          $this->montaMsgUsuario('OK', 'Olá '.$this->request->data('nome').', Obrigado pelo seu cadastro. É necessário que você valide seu cadastro através do e-mail que lhe enviamos.');
           $this->enviaEmailAtivacaoCadastro($cadastro['Colaborador']);
-          $this->redirect("/Login/interno/");
+          $this->salvaSessao($cadastro['Colaborador']);
         } else {
+          $this->salvaSessao($cadastro['Colaborador']);
           $this->Colaborador->save();
-          $this->set('mensagemOk', $this->request->data('nome') . ', suas alterações foram salvas.');
+          $this->montaMsgUsuario('OK', $this->request->data('nome').', suas alterações foram salvas.' );
         }
-        $this->salvaSessao($cadastro['Colaborador']);
+        $this->redirect("/Login/interno/");
       } else {
         $errors = $this->Colaborador->validationErrors;
         foreach ($errors as $k => $v) {
@@ -545,8 +547,6 @@ class LoginController extends AppController {
 
   function interno() {
     
-    $this->montaMsgUsuario('OK', 'MENSAGEM TESTE');
-    
     $this->validaUsuarioLogado();
     
     $id_colaborador = $this->Session->read('colaborador.id');
@@ -605,7 +605,7 @@ class LoginController extends AppController {
     $this->autoRender = false;
     $this->loadModel('Colaborador');
     $this->enviaEmailAtivacaoCadastro($this->Session->read('colaborador'));
-    $this->Session->write('colaborador.msgUsuario', serialize(array('tipo' => 'OK', 'msg' => array('Reenvimos um e-mail para '.$this->Session->read('colaborador.email')))));
+    $this->montaMsgUsuario('OK', 'Reenviamos um e-mail para '.$this->Session->read('colaborador.email'));
   }
 
   public function enviaEmailAtivacaoCadastro($colaborador) {

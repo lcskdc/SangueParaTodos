@@ -16,7 +16,7 @@ echo $this->Html->script('/js/home.js');
   <div class="dv-home-mapa">
     <div class="setaabaixo">
       <div class="seta">
-        <img src="/img/coracao_batendo.gif" />&nbsp;Locais próximas a você 
+        <img src="/img/coracao_batendo.gif" />&nbsp;Locais próximas a você <a href="#self" title="Saiba mais" data-toggle="modal" data-target="#modalInfoGeoLocalizacao"><img src="/img/icone-mais.gif" /></a>
         <a href="#self" class="icon-minha-localizacao" title="Localização do navegador"><span data-toggle="tooltip" data-placement="bottom" title="Localização do navegador"><img width="40" src="/img/icon_mylocation.png" /></span></a>
         <a href="#self" class="icon-edit-localizacao" title="Alterar localização"><span data-toggle="tooltip" data-placement="bottom" title="Alterar localização"><img src="/img/alterar_localizacao.png" /></span></a>
       </div>
@@ -34,7 +34,7 @@ echo $this->Html->script('/js/home.js');
     <?php
     if(isset($topDoadores)) { ?>
     <div class="dv-top-doadores">
-      <h2><center>Top doadores</center></h2>
+      <h2><center>Ranking</center></h2>
       <table align="center">
         <tbody>
           <?php foreach($topDoadores as $k => $v) {  ?>
@@ -103,6 +103,30 @@ echo $this->Html->script('/js/home.js');
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="modalInfoGeoLocalizacao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sangue para todos</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Diferentes fontes podem ser utilizadas para obter a localização do usuário, tendo cada uma seu próprio grau de precisão e/ou variação. Em um navegador instalado em um desktop é bem provável que o sistema de geolocalização utilize WiFi (com precisão de 20m) ou o IP, podendo fornecer algumas vezes falsas informações. Já os dispositivos móveis utilizam a técnica de triangulação do GPS (que possui precisão de 10m) , WiFi e GSM/ CDMA celular com uma precisão de 1000m.<br />Desta forma, os resultados obtidos podem variar de acordo com a coordenadas obtidas.
+        </p>
+        <p>
+          <a href="http://g1.globo.com/tecnologia/blog/seguranca-digital/post/como-funciona-localizacao-geografica-de-um-ip.html" target="_blank">Leia mais</a>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script language="javascript">
   $(function() {

@@ -169,7 +169,7 @@ class DemandaController extends AppController {
         }
         
         if ($this->Session->read('colaborador.id') > 0) {
-          $this->Session->write('colaborador.msgUsuario', serialize(array('tipo' => 'OK', 'msg' => array('Demanda cadastrada com sucesso'))));
+          $this->montaMsgUsuario('OK', 'Demanda cadastrada com sucesso');
           $this->redirect("/Login/interno/");
         } else {
           $this->redirect("/Demanda/cadastrado/");

@@ -29,14 +29,17 @@
  * ...and connect the rest of 'Pages' controller's URLs.
  */
     
+    /*
     $uri = $_SERVER['REQUEST_URI'];
-    $nuri = preg_replace('/[^0-9a-zA-Z\/]/','',$uri);
+    $nuri = preg_replace('/[^0-9a-zA-Z\/_]/','',$uri);
     
-    if($uri!=$nuri) {
+    if($uri!=$nuri && strpos($uri,'?') == -1) {
       $parts = explode('/',str_replace(' ','/',trim(str_replace('/',' ',$nuri))));
-      Router::connect($uri, array('controller' => $parts[0], 'action' => isset($parts[1])?$parts[1]:'index'));
+      if(!in_array($parts[1],array('markers'))) {
+        Router::connect($uri, array('controller' => $parts[0], 'action' => isset($parts[1])?$parts[1]:'index'));
+      }
     }
-    
+    */
     
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
     Router::connect('/politica-de-privacidade', array('controller' => 'Seguranca', 'action' => 'privacidade'));

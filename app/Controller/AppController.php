@@ -38,9 +38,8 @@ class AppController extends Controller {
       parent::beforeFilter();
       
       if($this->Session->check('colaborador.msgUsuario')) {
-        echo "Passou aqui!";
-        $this->set('msgUsuario',$this->Session->check('colaborador.msgUsuario'));
-        //$this->apagaMsgUsuario();
+        $this->set('msgUsuario',  unserialize($this->Session->read('colaborador.msgUsuario')));
+        $this->apagaMsgUsuario();
       }
       
       $this->set('imagem', $this->Session->read("colaborador.imagem"));
