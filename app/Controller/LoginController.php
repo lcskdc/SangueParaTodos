@@ -9,7 +9,10 @@ class LoginController extends AppController {
   public $components = array('Captcha');
 
   public function index() {
-    
+    $host = $_SERVER['HTTP_HOST'];
+    if(substr($host,0,22) == 'sangueparatodos.com.br') {
+      $this->redirect('http://www.sangueparatodos.com.br/Login/');
+    }
   }
 
   public function esquecisenha() {
@@ -35,7 +38,8 @@ class LoginController extends AppController {
           $hash = md5(@mktime());
           $esqueceu_senha = array('colaborador_id' => $colaborador_id, 'id' => $hash);
           $this->EsqueceuSenha->save($esqueceu_senha);
-          $this->enviaEmailEsqueceuSenha($hash, $colaborador['Colaborador']);
+          $colaborador['Colaborador']['chave'] = $hash;
+          $this->enviaEmail($colaborador['Colaborador'],'esqueceusenha');
           $email_enviado = true;
         }
       }
@@ -62,20 +66,20 @@ class LoginController extends AppController {
     ));
     
     if($esqueceuSenha) {
-      
       if(isset($this->request['data']['senha'])) {
         if($this->request['data']['senha']===$this->request['data']['confirma_senha']) {
           if(strlen($this->request['data']['senha'])>=6) {
             $senha = md5($this->request['data']['senha']);
             $this->loadModel("Colaborador");
             $this->Colaborador->read(null,$esqueceuSenha['Colaborador']['id']);
+            $this->Colaborador->set('ativo','S');
             $this->Colaborador->set('senha',$senha);
+            $this->salvaPontuacaoCadastro($this->Colaborador->id, $this->Colaborador->id_indicacao);
             $this->Colaborador->save();
-            
             $this->EsqueceuSenha->read(null,$hash);
             $this->EsqueceuSenha->set('valido','N');
             $this->EsqueceuSenha->save();
-            
+            $this->montaMsgUsuario('OK', 'Sua senha foi redefinida.');
             $this->redirect("/Login");
           } else {
             $this->set('erro',"A senha deve conter pelo menos 6 caracteres.");
@@ -85,23 +89,9 @@ class LoginController extends AppController {
         }
         
       }
-      
       $this->set('hash',$hash);
-      
-      
     }
     
-  }
-  
-  public function enviaEmailEsqueceuSenha($hash, $colaborador) {
-    App::uses('CakeEmail', 'Network/Email');
-    $server = "www.sangueparatodos.com.br";
-    //$server = "localhost:9090";
-    $Email = new CakeEmail('gmail');
-    $Email->from(array('lcskdc@gmail.com' => 'Sangue para todos'));
-    $Email->to($colaborador['email']);
-    $Email->subject('Portal sangue para todos - Redefinir senha');
-    $Email->send("Olá $colaborador[nome], acesse o link abaixo para redefinir sua senha.\n\n$server/Login/redefinir_senha?hash=$hash\n\nCaso não tenha solicitado, por favor desconsidere este e-mail.");
   }
   
   public function valida_cadastro() {
@@ -128,6 +118,20 @@ class LoginController extends AppController {
           }
         }
         $this->salvaPontuacaoCadastro($login['Colaborador']['id'], $login['Colaborador']['id_indicacao']);
+        
+        $this->loadModel('Demanda');
+        $this->Demanda->ativarDemandas($login['Colaborador']['id']);
+
+        if($login['Colaborador']['senha']=='inalterada') {
+          $this->loadModel('EsqueceuSenha');
+          $colaborador_id = $login['Colaborador']['id'];
+          $this->EsqueceuSenha->atualizaRegistrosAtivos($colaborador_id);
+          $hash = md5(@mktime());
+          $esqueceu_senha = array('colaborador_id' => $colaborador_id, 'id' => $hash, 'tipo' => 2);
+          $this->EsqueceuSenha->save($esqueceu_senha);
+          $this->montaMsgUsuario('OK', 'É ncessário definir sua senha');
+          $this->redirect("/Login/redefinir_senha?hash=$hash");
+        }
         
       }
     }
@@ -158,7 +162,13 @@ class LoginController extends AppController {
       } else {
         $cadastro = $this->Colaborador->create();
         $cadastro['Colaborador']['email'] = $this->Session->check('colaborador.id') ? $this->Session->read('colaborador.email') : $this->request->data('email');
-        $cadastro['Colaborador']['senha'] = md5($this->request->data('senha'));
+        if($this->request->data('senha')!=$this->request->data('confirmaSenha')) {
+          $erros[] = "A senha e a confirmação devem ser idênticas.";
+        } elseif(strlen($this->request->data('senha')) < 6) {
+          $erros[] = "A senha deve contér no mínimo 6 caracteres.";
+        } else {
+          $cadastro['Colaborador']['senha'] = md5($this->request->data('senha'));
+        }
         $cadastro['Colaborador']['chave'] = md5(rand(100000000,999999999));
         $cadastro['Colaborador']['ativo'] = 'A';
         $cadastro['Colaborador']['id_indicacao'] = $this->Session->read('sangue.id_indicacao');
@@ -168,6 +178,9 @@ class LoginController extends AppController {
       if ($this->request->data('nascimento') != "") {
         list($dia, $mes, $ano) = explode("/", $this->request->data('nascimento'));
         $dataNascimento = $ano . '-' . $mes . '-' . $dia;
+        if(!checkdate($mes,$dia,$ano)){
+          $erros[] = "Data de nascimento inválida.";
+        }
       }
 
       $cadastro['Colaborador']['nome'] = $this->request->data('nome');
@@ -179,20 +192,25 @@ class LoginController extends AppController {
       
       if(strlen(preg_replace('/[^0-9]/','',$this->request->data('telefone'))) >= 10) {
         $cadastro['Colaborador']['telefone'] = preg_replace('/[^0-9]/','',$this->request->data('telefone'));
-        $cadastro['Colaborador']['receber_sms'] = $this->request->data('receber_sms')?'N':'S';
+        $cadastro['Colaborador']['receber_sms'] = $this->request->data('receber_sms')?'S':'N';
       } else {
         $cadastro['Colaborador']['telefone'] = null;
         $cadastro['Colaborador']['receber_sms'] = 'N';
       }
 
       $this->Colaborador->set($cadastro);
-      if ($this->Colaborador->validates()) {
+      if($erros) {
+        foreach ($erros as $k => $v) {
+          $msgs[] = $v;
+        }
+        $this->set('msg', $msgs);        
+      }elseif ($this->Colaborador->validates()) {
         if (!$this->Session->check('colaborador.id')) {
           $this->Colaborador->save();
           $colaborador_id = $this->Colaborador->getLastInsertId();
           $cadastro['Colaborador']['id'] = $colaborador_id;
           $this->montaMsgUsuario('OK', 'Olá '.$this->request->data('nome').', Obrigado pelo seu cadastro. É necessário que você valide seu cadastro através do e-mail que lhe enviamos.');
-          $this->enviaEmailAtivacaoCadastro($cadastro['Colaborador']);
+          $this->enviaEmail($cadastro['Colaborador'],'cadastro');
           $this->salvaSessao($cadastro['Colaborador']);
         } else {
           $this->salvaSessao($cadastro['Colaborador']);
@@ -210,7 +228,6 @@ class LoginController extends AppController {
     }
 
     if ($this->Session->check('colaborador.id')) {
-        
       $this->set('nome', $this->Session->read('colaborador.nome'));
       $this->set('senha', $this->Session->read('colaborador.senha'));
       $this->set('telefone', $this->Session->read('colaborador.telefone'));
@@ -283,21 +300,23 @@ class LoginController extends AppController {
     $this->loadModel('Gamification');
     $gm = new Gamification();
     
-     //Pontuação pelo cadastro, todos recebem esta pontuação.
-    $ponto_cadastro['colaborador_id'] = $colaborador_id;
-    $ponto_cadastro['pontos'] = 100; //Pontuação pelo cadastro
-    $ponto_cadastro['ref'] = $this->referer();
-    $ponto_cadastro['tipo_id'] = 2;
-    $gm->save($ponto_cadastro);
-    unset($gm);
-    
-    $gm = new Gamification();
-    if($indicacao_id>0) { //Pontuação por cadastro de uma pessoa que acessou o site compartilhado
-      $ponto_cadastro['colaborador_id'] = $indicacao_id;
-      $ponto_cadastro['pontos'] = 50; //Pontuação por indicação
+    if(!$gm->isPontuado($colaborador_id,2)) {
+      //Pontuação pelo cadastro, todos recebem esta pontuação.
+      $ponto_cadastro['colaborador_id'] = $colaborador_id;
+      $ponto_cadastro['pontos'] = 100; //Pontuação pelo cadastro
       $ponto_cadastro['ref'] = $this->referer();
-      $ponto_cadastro['tipo_id'] = 3;
+      $ponto_cadastro['tipo_id'] = 2;
       $gm->save($ponto_cadastro);
+      unset($gm);
+
+      $gm = new Gamification();
+      if($indicacao_id>0) { //Pontuação por cadastro de uma pessoa que acessou o site compartilhado
+        $ponto_cadastro['colaborador_id'] = $indicacao_id;
+        $ponto_cadastro['pontos'] = 50; //Pontuação por indicação
+        $ponto_cadastro['ref'] = $this->referer();
+        $ponto_cadastro['tipo_id'] = 3;
+        $gm->save($ponto_cadastro);
+      }
     }
     
   }
@@ -375,6 +394,7 @@ class LoginController extends AppController {
     $this->Session->write('colaborador.chave', $Colaborador['chave']);
     $this->Session->write('colaborador.telefone', $Colaborador['telefone']);
     $this->Session->write('colaborador.receber_sms', $Colaborador['receber_sms']);
+    $this->Session->write('colaborador.tipo_social', isset($Colaborador['tipo_social'])?$Colaborador['tipo_social']:'');
     
     $this->busca_dados_usuario();
     
@@ -404,7 +424,6 @@ class LoginController extends AppController {
     ));
 
     if (!$colaborador) {
-
       $colaborador = $this->Colaborador->find('first', array(
         'conditions' => array(
           'email' => $this->request->data('email'),
@@ -430,15 +449,13 @@ class LoginController extends AppController {
           $cadastro['Colaborador']['sexo'] = $sexo;
         }
       }
-
+      $cadastro['Colaborador']['ativo'] = 'S';
+      
       $this->Colaborador->set($cadastro);
       $this->Colaborador->save();
       $errors = $this->Colaborador->validationErrors;
-      $colaborador_id = $this->Colaborador->getLastInsertId();
-
-      if (!$colaborador) {
-        $this->salvaPontuacaoCadastro($colaborador_id, $cadastro['Colaborador']['id_indicacao']);
-      }
+      $colaborador_id = !$colaborador?$this->Colaborador->getLastInsertId():$colaborador['Colaborador']['id'];
+      $this->salvaPontuacaoCadastro($colaborador_id, null);
       
       $colaborador = $this->Colaborador->find('first', array(
         'conditions' => array(
@@ -472,9 +489,10 @@ class LoginController extends AppController {
     
     $this->loadModel('Colaborador');
     $this->autoRender = false;
+    $host = $_SERVER['HTTP_HOST'];
     $CONSUMER_KEY = '7XtC5TO4NycPa1t8P0alPKtL9';
     $CONSUMER_SECRET = 'G8DSEigv0Q3qui2NsjdARb8OJ2FAYH1ATyyynODER7pumiEN4O';
-    $OAUTH_CALLBACK = 'http://sangueparatodos.com.br/Login/loginTwitter/';
+    $OAUTH_CALLBACK = 'http://'.$host.'/Login/loginTwitter/';
 
     if (!$this->request->query['oauth_token']) {
       $connection = new TwitterOAuth($CONSUMER_KEY, $CONSUMER_SECRET);
@@ -604,19 +622,8 @@ class LoginController extends AppController {
     $this->layout = 'ajax';
     $this->autoRender = false;
     $this->loadModel('Colaborador');
-    $this->enviaEmailAtivacaoCadastro($this->Session->read('colaborador'));
+    $this->enviaEmail($this->Session->read('colaborador'),'cadastro');
     $this->montaMsgUsuario('OK', 'Reenviamos um e-mail para '.$this->Session->read('colaborador.email'));
-  }
-
-  public function enviaEmailAtivacaoCadastro($colaborador) {
-    App::uses('CakeEmail', 'Network/Email');
-    $server = "www.sangueparatodos.com.br";
-    //$server = "localhost:9090";
-    $Email = new CakeEmail('gmail');
-    $Email->from(array('lcskdc@gmail.com' => 'Sangue para todos'));
-    $Email->to($colaborador['email']);
-    $Email->subject('Validação de conta');
-    $Email->send("Olá $colaborador[nome], obrigado pelo seu cadastro.\n\nÉ necessário que você valide seu cadastro através do link abaixo.\n\nhttp://$server/Login/valida_cadastro/?chave=$colaborador[chave]");
   }
   
 }

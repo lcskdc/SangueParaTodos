@@ -66,11 +66,23 @@ function enviaFormLogin() {
                 document.location.href = '/Login/interno/';
             } else {
                 $('#modalUsuarioSenhaInvalido').modal();
-                $('#controles .btn').removeAttr('disabled');
+                enabledControles();
             }
         });
     } else {
         $('#modalEmailSenhaIncorretos').modal();
-        $('#controles .btn').removeAttr('disabled');
+        enabledControles();
     }
+}
+
+function disabledControles() {
+    if($('#info-processando-login').length==0) {
+        $('#btn-login').before('<div id="info-processando-login"><img src="/img/carregando_p.gif" align="absmiddle" />&nbsp;Processando seu pedido</div>');
+    }
+    $('#controles .btn, #email, #senha').attr('disabled','disabled');
+}
+
+function enabledControles() {
+    $('#info-processando-login').remove();
+    $('#controles .btn, #email, #senha').removeAttr('disabled');
 }

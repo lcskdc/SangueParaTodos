@@ -87,4 +87,9 @@ class Gamification extends AppModel {
     return $r;
   }
   
+  public function isPontuado($id_colaborador, $tipo) {
+    $r = $this->find('all',array('conditions' => array('colaborador_id' => $id_colaborador, 'tipo_id' => $tipo)));
+    return count($r)>0;
+  }
+  
 }

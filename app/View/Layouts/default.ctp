@@ -71,12 +71,13 @@ $imagem = $this->Session->read("colaborador.imagem");
             
             <?php if($this->Session->check('colaborador.nome')) { ?>
               <div class="dv-info">
+                <a href="/Login/cadastro" title="Visualizar seu cadastro">
                 <?php if($imagem!="") { ?>
                   <div class="img_col"><img src="<?php echo $imagem?>" class="img-circle" /></div>
                 <?php } else { ?>
                   <div class="img_col"><img src="/img/avatar.jpg" class="img-circle" /></div>
                 <?php } ?>
-                
+                </a>
                 <div class="dv-informacoes">
                   <a id="btn-sair" href="/Login/sair" title="Clique para sair"><img src="/img/icon-sair.png" /></a>
                   <?php if($colaborador_pontuacao>0) { ?>

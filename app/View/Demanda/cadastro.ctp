@@ -17,12 +17,19 @@
   </div>
   <?php if(!isset($idColaborador)) { ?>
   <p>
+    <input type="checkbox" id="aceite-termo-de-uso" value="S" />&nbsp;<label for="aceite-termo-de-uso">Eu li e concordo com os</label> <a href="/termos-de-uso" target="_blank">termos de uso</a>
+  </p>
+  <p>
     <label for="nome">Qual é o seu nome:<span class="require"> *</span></label>
     <input class="form-control" type="text" name="nmUsuario" id="nmUsuario" placeholder="Seu nome" value="<?php echo $nmUsuario?>" autofocus />
   </p>
   <p>
     <label for="nome">Seu e-mail:<span class="require"> *</span></label>
     <input class="form-control" type="text" name="email" id="email" placeholder="e-mail" value="<?php echo $email?>" autofocus />
+  </p>
+  <?php } else { ?>
+  <p>
+    <a href="/termos-de-uso" target="_blank">Termos de uso</a>
   </p>
   <?php } ?>
   <p>
@@ -70,6 +77,6 @@
 <p>
   <label for="local">&nbsp;</label>
   <input type="hidden" name="id_local" id="id_local" value="<?php echo $idLocal?>" />
-  <input type="submit" class="btn btn-lg btn-success" value="Cadastrar demanda" />
+  <input type="submit" id="btn_cadastro" class="btn btn-lg btn-success"<?php echo !isset($idColaborador)?' disabled':''?> value="Cadastrar demanda" />
 </p>
 </form>

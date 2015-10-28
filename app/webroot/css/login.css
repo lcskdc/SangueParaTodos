@@ -109,3 +109,7 @@
 .btnWith100 {
     width:100%;
 }
+
+#info-processando-login {
+    text-align:center;
+}

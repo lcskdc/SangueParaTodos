@@ -17,11 +17,13 @@ class LocalController extends AppController {
   
   public function demandas($id_colaborador = 0, $id_demanda = 0) {
     $locais = $this->buscaItensProximos(15, $id_colaborador, $id_demanda);
+    //print_r($this->Session->read("colaborador"));
     //echo '<pre>',print_r($locais),'</pre>';
     $this->set('locais', $locais);
     $this->set('colaborador_id',$this->Session->read("colaborador.id"));
     $this->set('flt_colaborador',$id_colaborador);
     $this->set('flt_demanda',$id_demanda);
+    $this->set('tipo_social',$this->Session->read("colaborador.tipo_social"));
     $coords_usuario = $this->Session->check("colaborador.lat")?$this->Session->read("colaborador.lat").",".$this->Session->read("colaborador.lng"):'';
     $this->set('coordenadas_usuario',$coords_usuario);
   }

@@ -1,5 +1,6 @@
-var clientId = '180179707012-pc6pjimavg7acccviecbdr7iuojildun.apps.googleusercontent.com';
-var apiKey = 'AIzaSyB_0qVAogkBCDP_CphKnY06O5PgKV-fOQQ';
+var clientId = '180179707012-7be2skqjaki93th23b8dfkek54qct9q8.apps.googleusercontent.com';
+var apiKey = 'AIzaSyCqI6TnUZrEXiwdJX_SyN0bSdEpSaLv4tk';
+
 var scopes = 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email';
 
 (function() {
@@ -26,6 +27,7 @@ function makeApiCall() {
             userId: 'me'
         });
         request.execute(function(ret) {
+            //console.log(ret);
             var nome = ret.displayName;
             var email = ret.emails[0].value;
             var sexo = ret.gender;

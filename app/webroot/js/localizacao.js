@@ -23,7 +23,7 @@ function mostraMapa(position) {
 function errorHandler(err) {
     $.post('/Local/loc_usuario/', function(r) {
         jObj = $.parseJSON(r);
-        console.log(jObj);
+        //console.log(jObj);
         if (jObj.latitude != undefined && jObj.longitude != undefined) {
             exibirPosicoesMapa(jObj, false);
         } else {
@@ -39,7 +39,7 @@ function errorHandler(err) {
  * entao exibe marcadores no Mapa, se existirem, atraves de consulta Ajax
  */
 function getLocalizacao() {
-    console.log('passou aqui geoLocalização');
+    //console.log('passou aqui geoLocalização');
     if (navigator.geolocation) {
         var options = {timeout: 6000}; //timeout de 60 seconds
         navigator.geolocation.getCurrentPosition(mostraMapa, errorHandler, options);
@@ -62,9 +62,9 @@ function criarMapa() {
         mapOptions = {zoom: 12, center: latLng}
         map = new google.maps.Map($('.mapa')[0], mapOptions);
         var ret = $.parseJSON(data);
-        console.log(ret);
+        //console.log(ret);
         if (ret.latitude != undefined) {
-            console.log('passou aqui 1');
+            //console.log('passou aqui 1');
             var pos = {coords: {
                     accuracy: null,
                     altitude: null,
@@ -77,7 +77,7 @@ function criarMapa() {
             };
             mostraMapa(pos);
         } else {
-            console.log('passou aqui 2');
+            //console.log('passou aqui 2');
             getLocalizacao();
         }
 

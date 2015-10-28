@@ -37,7 +37,7 @@ class Colaborador extends AppModel {
       $n = rand(0, $alphaLength);
       $pass[] = $alphabet[$n];
     }
-    return base64_encode(implode($pass)); //turn the array into a string    
+    return md5(implode($pass)); //turn the array into a string    
   }
   
 }

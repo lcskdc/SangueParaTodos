@@ -55,34 +55,23 @@ function facebookLogout() {
  * @returns {facebook login response}
  */
 function facebookLogin(callback) {
+    disabledControles();
     FB.login(function(response) {
         if (response.authResponse) {
             access_token = response.authResponse.accessToken; //get access token
             user_id = response.authResponse.userID; //get FB UID
             url_img = "";
-            FB.api('/me', function(response) {
-                FB.api('/me/?fields=picture', function(resp) {
-                    url_img = resp.picture.data.url;
-                    var data = {email: response.email, nome: response.name, id: response.id, sexo: response.gender, urlImagem: url_img, tipo: 'facebook'}
-                    efetuaLoginSocial(data, callback);
-                });
+            FB.api('/me?fields=picture,email,name,gender', function(response) {
+                url_img = response.picture.data.url;
+                var data = {email: response.email, nome: response.name, id: response.id, sexo: response.gender, urlImagem: url_img, tipo: 'facebook'}
+                efetuaLoginSocial(data, callback);
             });
-
+        } else {
+            enabledControles();
         }
     }, {
-        scope: 'public_profile,email,user_friends,read_custom_friendlists'
+        scope: 'public_profile,email'
     });
-}
-
-function testeAquireFriends() {
-    console.log('user_id: '+$('#id-user').val());
-    FB.api('/'+$('#id-user').val()+'/friends/1920491531508647', function(resp) {
-        console.log(resp);
-    });
-    
-    FB.api('/me/friends', function(resp) {
-        console.log(resp);
-    });    
     
 }
 
@@ -165,7 +154,6 @@ function efetuaLoginSocial(send, callback) {
 
     $.post('/Login/loginSocial/', send, function(data) {
         if (callback != undefined) {
-            console.log('executou callback');
             callback();
         } else {
             document.location.href = '/Login/interno/';

@@ -13,12 +13,12 @@ $(function() {
         });
     });
     
-    tempo = window.setInterval('removeMensagemPortal()',3500);
+    tempo = window.setInterval('removeMensagemPortal()',4300);
     
 });
 
 function removeMensagemPortal() {
-    $('.msgs-portal').animate({top: '0',opacity: '0'},450,function(){
+    $('.msgs-portal').animate({top: '0',opacity: '0'},550,function(){
         $('.msgs-portal').remove();
     });
     window.clearInterval(tempo);

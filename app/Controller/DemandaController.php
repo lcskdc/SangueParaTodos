@@ -7,7 +7,10 @@ class DemandaController extends AppController {
   public $helpers = array('Js' => array('Jquery', 'Ajax'));
 
   public function index() {
-    
+    echo md5("9");
+    echo '<hr />';
+    echo getcwd();
+    unlink(getcwd().'/img/demandas/'.md5('8').'.jpg');
   }
 
   public function lista() {
@@ -107,11 +110,15 @@ class DemandaController extends AppController {
             $this->Demanda->set('id_colaborador', $idColaborador);
           }
         }
-
+        
         if ($idColaborador == 0) {
-          $this->Colaborador->set('email', $email);
+          $hash = md5(@mktime());
+          $this->Colaborador->set('email',$email);
           $this->Colaborador->set('nome', $nmUsuario);
-          $this->Colaborador->set('senha', $this->Colaborador->geraSenha());
+          $this->Colaborador->set('senha','inalterada');
+          $this->Colaborador->set('ativo','A');
+          $this->Colaborador->set('chave',$hash);
+          
           if (!$this->Colaborador->validates()) {
             $errors = $this->Colaborador->validationErrors;
             foreach ($errors as $k => $v) {
@@ -122,6 +129,12 @@ class DemandaController extends AppController {
             $idColaborador = $this->Colaborador->getLastInsertId();
             $this->Demanda->set('id_colaborador', $idColaborador);
           }
+          
+          $busca = $this->Colaborador->find('first', array('conditions' => array('Colaborador.id' => $idColaborador)));
+          if($busca) {
+            $this->enviaEmail($busca['Colaborador'],'cadastro');
+          }
+          
         }
       } else {
         $this->Demanda->set('validado', date('Y-m-h H:i:s'));
@@ -151,21 +164,19 @@ class DemandaController extends AppController {
             fclose($handle);
           }
         } else {
-            
+            unlink(getcwd().'/img/demandas/'.md5($id).'.jpg');
             if (file_exists( getcwd().'/img/usuarios/'.md5($email).'.jpg' )) {
                 copy(getcwd().'/img/usuarios/'.md5($email).'.jpg', getcwd().'/img/demandas/'.md5($id).'.jpg');
             } else {
                 $imgDefault = 'http://sangueparatodos.com.br/img/avatar.jpg';
                 $urlImagem = "http://www.gravatar.com/avatar/" . md5( strtolower(trim($email))) . "?d=" . urlencode($imgDefault) . "&s=40";
-                echo $urlImagem.'<br />';
                 $strImg = file_get_contents($urlImagem);
                 if($strImg) {
-                    $handle = fopen(getcwd().'/img/demandas/'.md5($id).'.jpg','a');
-                    fwrite($handle,$strImg,strlen($strImg));
-                    fclose($handle);
+                   $handle = fopen(getcwd().'/img/demandas/'.md5($id).'.jpg','a');
+                  fwrite($handle,$strImg,strlen($strImg));
+                  fclose($handle);
                 }
             }
-
         }
         
         if ($this->Session->read('colaborador.id') > 0) {
@@ -302,5 +313,5 @@ class DemandaController extends AppController {
     );
     echo json_encode($cidades);
   }
-
+  
 }

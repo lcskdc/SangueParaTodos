@@ -58,7 +58,7 @@
   <?php } ?>
   
   <p>
-    <label for="telefone">Celuar: </label>
+    <label for="telefone">Celular: </label>
     <input type="text" name="telefone" id="telefone" value="<?php echo $telefone?>" placeholder="Ex.: (99)9999-99999" class="form-control" />
   </p>
   

@@ -30,14 +30,18 @@ $classes_css_sangue = array(
       <li>
         <div class="controles">
           <a class="img_colaborador" href="/Local/demandas/<?php echo $obj['id_colaborador']?>"><img class="img-circle" title="Postado por <?php echo $obj['nm_colaborador']?>" src="<?php echo $obj['img']?>" /></a>
-          <a title="Compartilhar via Facebook" class="btn-compartilhar-solicitacao rotacionar" href="#self" onclick="compartilharSolicitacao(<?php echo $obj['id_colaborador']?>, <?php echo $obj['id']?>)"></a>
+          
+          <?php if($tipo_social=='facebook') { ?>
+            <a title="Compartilhar via Facebook" class="btn-compartilhar-solicitacao rotacionar" href="#self" onclick="compartilharSolicitacao(<?php echo $obj['id_colaborador']?>, <?php echo $obj['id']?>)"></a>
+          <?php } ?>
+          
           <a title="Veja no mapa como chegar" href="<?php echo $obj['url_rota']?>" target="_blank" class="rotacionar"><img width="50" alt="Veja no mapa como chegar" class="img-circle" src="/img/icon_mapa_rota_60.png" /></a>
         </div>
 
-        <p>Descrição: <?php echo $obj['descricao']?></p>
-        <p>Paciente: <?php echo $obj['paciente']?></p>
-        <p>Doadores: <?php echo $obj['doadores']?></p>
-        <p>Local: <?php echo $obj['instituicao']?></p>
+        <p><strong>Descrição: </strong><?php echo $obj['descricao']?></p>
+        <p><strong>Paciente: </strong><?php echo $obj['paciente']?></p>
+        <p><strong>Doadores: </strong><?php echo $obj['doadores']?></p>
+        <p><strong>Local: </strong><?php echo $obj['instituicao']?></p>
         <p>
           <?php if($obj['id_local']>0){ ?>
           <img height="24" style="float:left;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|F56A58" title="Local cadastrado pelo portal" />
@@ -47,7 +51,7 @@ $classes_css_sangue = array(
           &nbsp;<?php echo $obj['endereco']?>
 
         </p>
-        <p>Tipos sanguíneos: </p>
+        <p><strong>Tipos sanguíneos: </strong></p>
         <p><?php
         $tipos = explode(',',$obj['tipos_sangue']);
         foreach($tipos as $k => $v) {
@@ -56,7 +60,9 @@ $classes_css_sangue = array(
         }
       } ?>
         </p>
-        <p>Validade: <?php echo date('d/m/Y', strtotime($obj['validade']));?></p>
+        <p><strong>Validade: </strong><?php echo date('d/m/Y', strtotime($obj['validade']));?></p>
+        
+        <p><a href="/Demanda/reportar-erro/<?php echo $obj['id']?>">Reportar erro</a></p>
 
       </li>
     <?php }

@@ -1,3 +1,6 @@
 /app/Config/email.php
 /app/Model/Config.php
 /app/Config/database.php
+/app/tmp/
+/app/webroot/img/demandas/
+/app/webroot/img/usuarios/

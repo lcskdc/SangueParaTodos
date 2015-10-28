@@ -2,7 +2,7 @@ function atualizaForcaSenha() {
     $('.txtsenha').keyup(function(){
        var forcasenha = verificaForcaSenha($(this).val());
        $('.forcasenha').removeClass('forcasenha-fraca forcasenha-regular forcasenha-boa');
-       console.log('$(this).next(.forcasenha): '+$(this).next('.forcasenha').length);
+       //console.log('$(this).next(.forcasenha): '+$(this).next('.forcasenha').length);
        
         if(forcasenha == 1) {
            $('.forcasenha').addClass('forcasenha-fraca');
@@ -15,7 +15,7 @@ function atualizaForcaSenha() {
 }
 function verificaForcaSenha(password) {
     var strengthLevel = 1;
-    console.log('password.length: '+password.length);
+    //console.log('password.length: '+password.length);
     if (password.length < 6) {
         strengthLevel = 1;
     }

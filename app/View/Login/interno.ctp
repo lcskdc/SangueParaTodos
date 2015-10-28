@@ -18,8 +18,8 @@
   </div>
 
   <div style="clear:both;float:none;"></div>
-  <input type="text" name="id-user" id="id-user" value="<?php echo $id_social?>" />
-  <a href="#self" onclick="testeAquireFriends();">Teste aqq facebook users</a>
+  <input type="hidden" name="id-user" id="id-user" value="<?php echo $id_social?>" />
+  <!--a href="#self" onclick="testeAquireFriends();">Teste aqq facebook users</a-->
 
 
 </div>

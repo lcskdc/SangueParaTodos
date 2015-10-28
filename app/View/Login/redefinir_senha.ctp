@@ -3,7 +3,7 @@
 <form name="cadastro" id="form-esquecisenha" class="forms" method="post" autocomplete="off">
   
   <div class="setaabaixo">
-      <div class="seta"><img src="/img/coracao_batendo.gif" />&nbsp;Redefinir senha?</div>
+      <div class="seta"><img src="/img/coracao_batendo.gif" />&nbsp;Alteração de senha</div>
   </div>
   
   <?php if(isset($hash)) { ?>

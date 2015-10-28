@@ -63,5 +63,10 @@ class Demanda extends AppModel {
       return false;
     }
   }
+  
+  public function ativarDemandas($colaborador_id) {
+    $sql = "UPDATE demandas SET validado = NOW() WHERE id_colaborador = $colaborador_id AND validado IS NULL";
+    $this->query($sql);
+  }
 
 }

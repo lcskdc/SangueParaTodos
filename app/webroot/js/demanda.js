@@ -1,4 +1,8 @@
 $(function() {
+    $('#aceite-termo-de-uso').change(function(){
+       $('#btn_cadastro').prop('disabled',!$(this).prop('checked'));
+    });
+    
     $('#validade').mask('99/99/9999');
     $('#adicionar_local').click(function() {
         var jnl = window.open("/Demanda/mapa","jnl","width=750,height=500,history=no,toolbars=no,location=yes");

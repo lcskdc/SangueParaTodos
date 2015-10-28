@@ -23,7 +23,5 @@ $(function() {
             stopOnHover : false
 
     });    
-    
-    console.log("Criou mapa aqui!");
     google.maps.event.addDomListener(window,'load',criarMapa);
 });

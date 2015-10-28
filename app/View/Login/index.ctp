@@ -1,8 +1,3 @@
-<script lang="javascript">
-
-
-  
-</script>
 <?php ?>
 <!--form name="login" id="form-login" class="forms" autocomplete="off" autocapitalize="off" autocorrect="off"-->
 <div id="form-login" class="forms">
@@ -83,17 +78,21 @@
     $('#email, #senha').val("");
     $('#email').select().focus();
 
+    $('#controles .btn').click(function(){
+      disabledControles();
+    });
+
     $('#btn-login').click(function() {
-      $('#controles .btn').attr('disabled','disabled');
       enviaFormLogin();
     });
     
     $('#btn-login-twitter').click(function(){
-       document.location.href = '/Login/loginTwitter/';
+      document.location.href = '/Login/loginTwitter/';
     });
 
     $('#email, #senha').keypress(function(event) {
       if (event.which == 13) {
+        disabledControles();
         enviaFormLogin();
       }
     });
