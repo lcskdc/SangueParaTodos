@@ -165,15 +165,18 @@
 
 .controles {
     float:right;
-    width:60px;
+    width:80px;
     border-left:1px solid #E9E9E9;
     padding-left:10px;
     height:100%;
 }
 
 .controles a {
+    display:inline-block;
     margin-bottom:10px;
     margin-right:10px;
+    text-align:center;
+    font-size:10px;
 }
 
 .bg-amenos {background: rgb(115, 65, 57); color:#FFF;}
@@ -387,4 +390,8 @@
     left:50%;
     margin-left:-25%;
     top:100px;
+}
+
+#resposta_captcha {
+    max-width:300px;
 }

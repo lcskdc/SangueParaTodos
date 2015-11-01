@@ -314,4 +314,39 @@ class DemandaController extends AppController {
     echo json_encode($cidades);
   }
   
+  public function denuncia() {
+    $this->layout = 'ajax';
+    $this->autoRender = false;
+    if($this->request->isPost()) {
+      $msg = "";
+      $acao = $this->request['data']['acao'];
+      $denuncia = $this->request['data']['observacao_denuncia'];
+      $id_demanda = $this->request['data']['idDemanda'];
+      $resposta_captcha = $this->request['data']['resposta_captcha'];
+      
+      if($this->Session->read('captcha.resposta') != $resposta_captcha) {
+        $msg = "A resposta de verificação não está correta.";
+      }
+      $this->loadModel('DenunciaDemanda');
+      $denuncia = array(
+        'id_demanda' => $id_demanda,
+        'acao' => $acao,
+        'denuncia' => $denuncia
+      );
+      if($this->Session->read('colaborador.id')) {
+        $denuncia['id_colaborador'] = $this->Session->read('colaborador.id');
+      }
+      
+      $this->DenunciaDemanda->save($denuncia);
+      $this->montaMsgUsuario('OK', 'Registramos a sua denúncia');
+      
+      if($msg!="") {
+        echo json_encode(array('status'=>'erro','msg'=>$msg));
+      } else {
+        echo json_encode(array('status'=>'ok'));
+      }
+      
+    }
+  }
+  
 }

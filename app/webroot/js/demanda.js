@@ -26,7 +26,7 @@ $(function() {
           $(v).prop("checked",!$(v).prop("checked"));
         });
     });
-
+    
 });
 
 function adicionaLocal(local, posicao) {

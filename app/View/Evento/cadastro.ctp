@@ -14,15 +14,26 @@
       <img src="/img/icon-info.png" style="position:absolute;margin-left:-30px;margin-top:-30px;" />Esta área é destinada para que você nos indique qual foi seu último evento, para que possamos entender o prazo e lhe avisar perto da data de uma nova doação.<br />Existem alguns eventos e/ou acontecimentos que restringem a doação de sangue por um determinado período. Abaixo listamos os mais comuns. <a href="http://bvsms.saude.gov.br/bvs/saudelegis/gm/2013/prt2712_12_11_2013.html" target="_blank">Leia mais</a>. 
     </div>
   </p>
-  <p>
-    <label for="nome">Evento:</label>
+  
+  <label for="nome">Evento:</label>
+  <div class="list-group">
+  <?php foreach($tipos as $key => $v) { ?>
+    <a href="#self" class="list-group-item" rel="<?php echo $v['id']?>">
+      <h4 class="list-group-item-heading"><?php echo $v['descricao']?> (<span class="dv-dias"><?php echo $v['prazo']?></span> dias)</h4>
+      <div class="list-group-item-text"><?php echo $v['desc_msgs']?></div>
+    </a>
+  <?php } ?>
+  </div>
+  <input type="hidden" name="idEvento" id="idEvento" value="<?php echo $idEvento?>" />
+  <!--p>
     <select name="evento" id="evento" class="form-control">
       <option value="0">Selecione</option>
       <?php foreach($tipos as $key => $v) { ?>
-        <option value="<?php echo $v['TipoEvento']['id']?>"><?php echo $v['TipoEvento']['descricao']?> - <?php echo $v['TipoEvento']['prazo']?> dias</option>
+        <option value="<?php echo $v['id']?>"><?php echo $v['descricao']?> - <?php echo $v['prazo']?> dias</option>
       <?php } ?>
     </select>
-  </p>
+  </p-->
+  
   <!--p>
     <label for="validade">Data:</label>
     <input type="text" name="validade" class="form-control" id="validade" value="<?php echo date('d/m/Y')?>" />
@@ -30,17 +41,10 @@
   
   <div class="dv-calendario">
     
-    <?php foreach($meses as $k => $v) {
-    $classe = $k==count($meses)-1?'':' dv';
-    $classe_sel = $v['mes'].'/'.$v['ano']==$selecionado?' selecionado':'';
-    ?>
-    <div class="meses<?php echo $classe?>" rel="<?php echo $v['mes'].'/'.$v['ano']?>"><div class="selecao<?php echo $classe_sel?>">&nbsp;</div><br /><span class="mes"><?php echo $v['mes_ext']?></span><br /><span class="ano"><?php echo $v['ano']?></span><input type="hidden" class="cx-data" value="<?php echo $v['mes'].'/'.$v['ano']?>" /></div>
-    <?php } ?>
-    
   </div>
   
   <p class="ctrls">
-    <input type="hidden" name="validade" id="validade" value="<?php echo date('m/Y')?>" />
+    <input type="hidden" name="validade" id="validade" value="<?php echo $validade?>" />
     <input type="submit" class="btn btn-lg btn-success" value="Salvar" />
   </p>
   
@@ -48,23 +52,40 @@
 <script language="javascript">
 
   $(function(){
+    
+    $('.list-group-item').click(function(){
+      $('.list-group .list-group-item').removeClass('active');
+      $(this).addClass('active');
+      var idEvento = $(this).attr('rel');
+      $('#idEvento').val(idEvento);
+      $('.dv-calendario').html('<img src="/img/carregando.gif" />');
+      $.post('/Evento/meses',{idEvento:idEvento,validade:$('#validade').val()},function(data){
+        $('.dv-calendario').html(data);
+        atualizaFuncoesMeses();
+        $('#validade').val($('.dv-calendario .meses .selecionado').parent().find('.cx-data').val());
+      });      
+    });
+    
+  });
+  
+  function atualizaFuncoesMeses() {
     $('.dv-calendario .meses').click(function(){
       $('.dv-calendario .meses .selecionado').removeClass('selecionado');
       $(this).find('.selecao').addClass('selecionado');
       $('#validade').val($(this).find('.cx-data').val());
-    });
-  });
+    });    
+  };
   
 </script>
 <style type="text/css">
   .dv-calendario {
     margin:10px auto;
-    width:410px;
+    text-align: center;
   }
   
   .dv-calendario .meses {
     padding:10px;
-    width:32%;
+    width:auto;
     display:inline-block;
     text-align:center;
     cursor:pointer;

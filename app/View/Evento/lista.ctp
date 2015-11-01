@@ -25,7 +25,7 @@
         <?php } ?>  
           <td><?php echo $v['tipoevento']['descricao']?></td>
           <td><?php echo $v[0]['data']?></td>
-          <td><?php echo $v['tipoevento']['prazo']?></td>
+          <td><?php echo $v['evento']['prazo']?></td>
           <td><?php echo $v[0]['tempo']?></td>
           <td><?php echo $v[0]['restante']?></td>
         </tr>

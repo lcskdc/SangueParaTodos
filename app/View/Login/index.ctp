@@ -78,10 +78,6 @@
     $('#email, #senha').val("");
     $('#email').select().focus();
 
-    $('#controles .btn').click(function(){
-      disabledControles();
-    });
-
     $('#btn-login').click(function() {
       enviaFormLogin();
     });

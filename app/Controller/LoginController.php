@@ -184,7 +184,14 @@ class LoginController extends AppController {
       }
 
       $cadastro['Colaborador']['nome'] = $this->request->data('nome');
-      $cadastro['Colaborador']['sexo'] = $this->request->data('sexo');
+      
+      $sexo = $this->request->data('sexo');
+      if(!in_array($sexo,array('U','F','M'))) {
+        $sexo = "U";
+      }
+      $cadastro['Colaborador']['sexo'] = $sexo;
+      
+      
       $cadastro['Colaborador']['nascimento'] = $dataNascimento;
       $cadastro['Colaborador']['uf'] = $this->request->data('uf');
       $cadastro['Colaborador']['cidade'] = $this->request->data('cidade');
@@ -587,11 +594,11 @@ class LoginController extends AppController {
     $id_colaborador = $this->Session->read('colaborador.id');
     $sql = "SELECT
             DATEDIFF(NOW(),evento.data) as tempo,
-            prazo-DATEDIFF(NOW(),evento.data) as restante,
-            DATE_ADD(data, INTERVAL prazo DAY) as previsao,
+            evento.dias-DATEDIFF(NOW(),evento.data) as restante,
+            DATE_ADD(data, INTERVAL evento.dias DAY) as previsao,
             evento.data,
             tp.descricao,
-            tp.prazo
+            evento.dias as prazo
             FROM eventos evento
               JOIN tipoevento tp ON tp.id = evento.id_evento
             WHERE id_colaborador = '$id_colaborador'

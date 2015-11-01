@@ -26,9 +26,8 @@ class Evento extends AppModel {
   public function getPrazo($colaborador_id) {
     $resultado = 0;
     $sql = "SELECT
-              MAX(GREATEST(tipoevento.prazo-DATEDIFF(NOW(),evento.data),0)) as restante
+              MAX(GREATEST(evento.dias-DATEDIFF(NOW(),evento.data),0)) as restante
             FROM eventos evento
-              JOIN tipoevento tipoevento ON tipoevento.id = evento.id_evento
             WHERE evento.id_colaborador = $colaborador_id";
     $r = $this->query($sql);
     if($r){
@@ -39,10 +38,9 @@ class Evento extends AppModel {
   
   public function getEventoPendente($colaborador_id, $evento_id, $idEventoCadastrado) {
     $sql = "SELECT
-            GREATEST(tipoevento.prazo-DATEDIFF(NOW(),evento.data),0) as restante
+            GREATEST(evento.dias-DATEDIFF(NOW(),evento.data),0) as restante
             FROM eventos evento
-              JOIN tipoevento tipoevento ON tipoevento.id = evento.id_evento
-            WHERE evento.id_colaborador = $colaborador_id AND evento.id <> $idEventoCadastrado AND tipoevento.id = $evento_id ORDER BY evento.data DESC";
+            WHERE evento.id_colaborador = $colaborador_id AND evento.id <> $idEventoCadastrado AND evento.id_evento = $evento_id ORDER BY evento.data DESC";
     return $this->query($sql);
     
   }
@@ -70,13 +68,13 @@ class Evento extends AppModel {
     $sql = "SELECT
               DATE_FORMAT(evento.data,\"%d/%m/%Y\") as data,
               tipoevento.descricao,
-              tipoevento.prazo,
-              GREATEST(tipoevento.prazo-DATEDIFF(NOW(),evento.data),0) as restante,
+              evento.dias as prazo,
+              GREATEST(evento.dias-DATEDIFF(NOW(),evento.data),0) as restante,
               DATEDIFF(NOW(),evento.data) as tempo
             FROM eventos evento
               JOIN tipoevento tipoevento ON tipoevento.id = evento.id_evento
             WHERE evento.id_colaborador = $colaborador_id
-            ORDER BY GREATEST(tipoevento.prazo-DATEDIFF(NOW(),evento.data),0) DESC";
+            ORDER BY GREATEST(evento.dias-DATEDIFF(NOW(),evento.data),0) DESC";
     return $this->query($sql);
   }
   

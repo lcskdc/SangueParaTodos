@@ -10,7 +10,7 @@
     <ul class="menu_interno">
       <li><a href="/Login/cadastro" class="acadastro"><img src="/img/icon-cadastro.jpg" class="img-circle" />Seu<br />Cadastro</a></li>
       <li><a href="/Medalha/lista" class="amedalhas"><img src="/img/icon-medalha.jpg" class="img-circle" />Sua<br />Pontuação</a></li>
-      <li><a href="/Demanda/cadastro" class="asolicitacao"><img src="/img/icon-solicitacao.jpg" class="img-circle" />Solicitar<Br />doadores</a></li>
+      <li><a href="/Demanda/cadastro" class="asolicitacao"><img src="/img/icon-solicitacao.jpg" class="img-circle" />Solicitar<Br />doação</a></li>
       <li><a href="/Local/demandas/<?php echo $id_colaborador?>" class="asolicitacoes"><img src="/img/icon-solicitacoes.jpg" class="img-circle" />Suas<br />Solicitações</a></li>
       <li><a href="/Evento/cadastro" class="aevento"><img src="/img/icon-calendario.jpg" class="img-circle" />Novo<br />Evento</a></li>
       <li><a href="/Evento/lista" class="aeventos"><img src="/img/icon-eventos.jpg" class="img-circle" />Seus<br />Eventos</a></li>

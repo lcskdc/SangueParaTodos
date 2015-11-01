@@ -91,5 +91,59 @@ class Gamification extends AppModel {
     $r = $this->find('all',array('conditions' => array('colaborador_id' => $id_colaborador, 'tipo_id' => $tipo)));
     return count($r)>0;
   }
+
+  public function getPontosSum($idColaborador, $tipo) {
+    $total = $this->find('first',
+      array(
+        'fields' => array('SUM(pontos) as total'),
+        'conditions' => array('colaborador_id' => $idColaborador, 'medalha_adquirida' => '0', 'tipo_id' => $tipo)
+      )
+    );
+    return @(int) $total[0]['total'];
+  }
+  
+  public function getPontosCount($idColaborador, $tipo) {
+    $total = $this->find('count',
+      array('conditions' => array('colaborador_id' => $idColaborador, 'medalha_adquirida' => '0', 'tipo_id' => $tipo))
+    );
+    return @(int) $total;
+  }  
+  
+  public function afterSave($create, $options = array()) {
+    if($create) {
+
+      App::Import('Model','Medalha');
+      App::Import('Model','ColaboradorMedalha');
+      $tipo = $this->data['Gamification']['tipo_id'];
+      $idColaborador = $this->data['Gamification']['colaborador_id'];
+      
+      $Medalha = new Medalha();
+      $m = $Medalha->buscaMedalhaTipo($idColaborador,$tipo);
+      
+      if($tipo==2) { //Cadastro
+        $ColaboradorMedalha = new ColaboradorMedalha();
+        $this->atribuiMedalha($idColaborador,$m,$tipo);
+      } else if($tipo==4) { //Doação de sangue
+        $ColaboradorMedalha = new ColaboradorMedalha();
+        if($m['pontuacao']==0 || ($m['pontuacao']>$this->getPontosCount($idColaborador,$tipo))) {
+          $this->atribuiMedalha($idColaborador,$m,$tipo);
+        }
+      }
+      
+    }
+  }
+  
+  public function atribuiMedalha($idColaborador, $medalha, $tipo) {
+    print_r($medalha);
+    $medalha_id = $medalha['id'];
+    $ColaboradorMedalha = new ColaboradorMedalha();
+    $medalhaColaborador['colaborador_id'] = $idColaborador;
+    $medalhaColaborador['medalha_id'] = $medalha_id;
+    $medalhaColaborador['pontuacao'] = $medalha['pontuacao'];
+    $ColaboradorMedalha->save($medalhaColaborador);
+    $sql = "UPDATE colaborador_pontuacao SET medalha_adquirida = $medalha_id WHERE medalha_adquirida = 0 AND tipo_id = $tipo AND colaborador_id = $idColaborador";
+    $this->query($sql);
+  }
+  
   
 }

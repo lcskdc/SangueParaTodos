@@ -73,7 +73,7 @@
   <p>
     <label for="sexo">Sexo: </label>
     <select name="sexo" id="sexo" class="form-control">
-      <option value="">Escolha</option>
+      <option value="U">Escolha</option>
       <option value="F"<?php echo $sexo=='F'?' selected':''?>>Feminino</option>
       <option value="M"<?php echo $sexo=='M'?' selected':''?>>Masculino</option>
     </select>

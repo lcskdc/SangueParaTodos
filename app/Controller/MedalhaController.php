@@ -13,19 +13,53 @@ class MedalhaController extends AppController {
 
   public function lista() {
     
+    /*
+    $this->loadModel('DemandasCompartilhadas');
+    $chave = rand(0,19999);
+    $demanda_compartilhada['chave'] = md5($chave);
+    $demanda_compartilhada['solicitacao'] = '1';
+    $demanda_compartilhada['colaborador'] = '41';
+    $demanda_compartilhada['colaborador_id'] = '51';
+    $demanda_compartilhada['data'] = '2015-09-06 12:07:28';
+    $demanda_compartilhada['tipo_id'] = '1';
+    $demanda_compartilhada['medalha_adquirida'] = 'N';
+    $this->DemandasCompartilhadas->save($demanda_compartilhada);
+    */
+    
+    //echo '<pre>',print_r($this->Session->read('colaborador')),'</pre>';
+    
     $this->validaUsuarioLogado();
     
     $this->loadModel("Gamification");
     $gm = new Gamification();
 
     $pontos = $gm->find('all', array('conditions' => array(
-        'colaborador_id' => $this->Session->read('colaborador.id')
-      ),
-      'order' => array('Gamification.data DESC')
-        )
+      'colaborador_id' => $this->Session->read('colaborador.id')
+      ),'order' => array('Gamification.data DESC'))
     );
-    //echo '<pre>',print_r($pontos),'</pre>';
+    
+    $this->loadModel('ColaboradorMedalha');
+    $this->loadModel('DemandasCompartilhadas');
+    
+    $idColaborador = $this->Session->read('colaborador.id');
+    $compartilhamentos = $this->DemandasCompartilhadas->getDemandasCompartilhadas($idColaborador);
+    $proximaMedalhaCompartilhamento = $this->ColaboradorMedalha->proximaMedalhaTipo($idColaborador,1);
+    $medalhas = $this->ColaboradorMedalha->medalhasColaborador($idColaborador);
+    
+    //$this->loadModel('Medalha');
+    //$this->Gamification->getPontosCount($idColaborador, 2);
+    //$pontuacao['colaborador_id'] = $idColaborador;
+    //$pontuacao['pontos'] = 100;
+    //$pontuacao['tipo_id'] = 2;
+    //$this->Gamification->save($pontuacao);
+    
+    $this->set('tiposocial',$this->Session->read('colaborador.tipo_social'));
+    $this->set('compartilhamentos',$compartilhamentos);
+    $this->set('proximaMedalhaCompartilhamento',$proximaMedalhaCompartilhamento);
+    $this->set('ncomp',count($compartilhamentos));
+    $this->set('medalhas',$medalhas);
     $this->set('lst_pontos', $pontos);
+    
   }
 
   public function ranking() {
@@ -43,7 +77,6 @@ class MedalhaController extends AppController {
     $res = $gm->query($sql);
 
     $regs = array();
-    print_r($res);
     foreach ($res as $k => $v) {
       $reg = array(
         'nome' => $v['c']['nome'],

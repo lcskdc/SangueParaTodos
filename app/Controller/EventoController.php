@@ -14,8 +14,7 @@ class EventoController extends AppController {
 
   public function lista_json() {
     $this->autoRender = false;
-    $this->Evento->useTable = 'tipoevento';
-    $tiposEvento = $this->Evento->find('all');
+    $tiposEvento = $this->TipoEvento->find('all');
     echo json_encode($tiposEvento);
   }
 
@@ -29,21 +28,30 @@ class EventoController extends AppController {
   public function cadastro() {
     
     $this->validaUsuarioLogado();
-    $this->atualizaPrazoSessao();
+    $id_evento = 0;
     
     if ($this->request->isPost()) {
       
       $data = '';
       if (preg_match('/[0-9]{2}\/[0-9]{4}/', $this->request->data('validade'))) {
         $d = explode('/', $this->request->data('validade'));
-        $data = $d[1] . '-' . $d[0] . '-01';
-        $mk_data = mktime(0,0,0,$d[0],1,$d[1]);
+        $dia = $d[1].$d[0]==date('Ym')?date('d'):'01';
+        $data = $d[1] . '-' . $d[0] . '-'.$dia;
+        $mk_data = mktime(0,0,0,$d[0],$dia,$d[1]);
       }
-
-      $id_evento = $this->request->data('evento');
+      
+      $id_evento = $this->request->data('idEvento');
+      $prazo = 0;
+      if($id_evento>0) {
+        $this->loadModel('TipoEvento');
+        $tpEvento = $this->TipoEvento->buscaTiposEvento($this->Session->read("colaborador.sexo"),$id_evento);
+        $prazo = $tpEvento['prazo'];
+      }
+      
       $evento = array(
         'id_evento' => $id_evento,
         'data' => $data,
+        'dias' => $prazo,
         'id_colaborador' => $this->Session->read('colaborador.id')
       );
       
@@ -72,6 +80,7 @@ class EventoController extends AppController {
         $tpEvento = $this->TipoEvento->find('first',array('conditions' => array('id' => $id_evento)));
         $nome = $this->Session->read('colaborador.nome');
         $this->montaMsgUsuario('OK', "Obrigado $nome, registramos o evento.<br />Decorrido o prazo deste evento, lhe comunicaremos para que você possa realizar uma nova doação e salvar vidas.".$msgGamification);
+        $this->atualizaPrazoSessao();
         $this->redirect("/Login/interno/");
       } else {
         $errors = $this->Evento->validationErrors;
@@ -83,19 +92,13 @@ class EventoController extends AppController {
 
     }
 
-    if($this->request->isPost()) {
-      $selecionado = $this->request->data('validade');
-    }else {
-      $selecionado = date('m/Y');
-    }
-    
+    $validade = $this->request->data('validade')?$this->request->data('validade'):date('m/Y');
     $this->set('meses',$this->mostra_meses(3));
-    $this->set('selecionado',$selecionado);
-    
+    $this->set('validade',$validade);
+    $this->set('idEvento',$id_evento);
     $this->loadModel("TipoEvento");
-    $tipos = $this->TipoEvento->find('all');
+    $tipos = $this->TipoEvento->buscaTiposEvento($this->Session->read('colaborador.sexo'));
     $this->set('tipos', $tipos);
-    
     
   }
 
@@ -116,6 +119,30 @@ class EventoController extends AppController {
   public function atualizaPrazoSessao() {
     $prazo = $this->Evento->getPrazo($this->Session->read('colaborador.id'));
     $this->Session->write('sangue.restante',$prazo);
+  }
+  
+  public function meses() {
+    $this->layout = 'ajax';
+    $idEvento = $this->request->data('idEvento');
+    $selecionado = $this->request->data('validade')?$this->request->data('validade'):date('m/Y');
+    $this->loadModel('TipoEvento');
+    $evt = $this->TipoEvento->buscaTiposEvento($this->Session->read('colaborador.sexo'),$idEvento);
+    $prazo = max(round(($evt['prazo']/2)/30),1);
+    $meses = $this->mostra_meses($prazo);
+    
+    $na_lista = false;
+    foreach($meses as $key => $v) {
+      if($selecionado==$v['mes'].'/'.$v['ano']) {
+        $na_lista = true;
+      }
+    }
+    
+    if(!$na_lista) {
+      $selecionado = date('m/Y');
+    }
+    
+    $this->set('meses',$meses);
+    $this->set('selecionado',$selecionado);
   }
   
   public function mostra_meses($tempo_evento_maximo) {

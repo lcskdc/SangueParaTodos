@@ -92,10 +92,13 @@ class LocalController extends AppController {
     if( $this->Session->check('colaborador.lat') && $this->Session->check('colaborador.lng') ) {
       $latitude  = $ret['latitude'];
       $longitude = $ret['longitude']; 
-    } else if(isset($ret)){
+    } else if(isset($ret['latitude'])){
       $latitude  = $ret['latitude'];
       $longitude = $ret['longitude'];
       $distancia = $ret['distancia'];
+    } else {
+      $consulta_sem_registros = true;
+      $longitude = $latitude = null;
     }
     
     if($consulta_locais) {
@@ -112,6 +115,7 @@ class LocalController extends AppController {
           $sqlFiltroDistancia
           ORDER BY distancia
           LIMIT 20";
+      
       $demandas = $this->Local->query($sql);
 
       foreach($demandas as $key => $value) {
@@ -160,58 +164,67 @@ class LocalController extends AppController {
           ) as distancia
       FROM demandas Demanda
         JOIN colaboradores Colaborador ON Colaborador.id = Demanda.id_colaborador
-      WHERE 1 = 1
+        LEFT JOIN denuncias_demandas DenunciaDemanda ON DenunciaDemanda.id_demanda = Demanda.id AND Colaborador.id = DenunciaDemanda.id_colaborador
+      WHERE 1 = 1 AND DenunciaDemanda.id IS NULL
       $sqlFiltroColaborador
       $sqlFiltroDemanda
       $sqlFiltroDistancia
       ORDER BY Demanda.id DESC
       LIMIT 100";
     }
-    
     $demandas = $this->Local->query($sql);
+    //echo '<pre>',print_r($demandas),'</pre>';
     foreach($demandas as $key => $value) {
       $d           = $demandas[$key]['Demanda'];
       $img = file_exists(getcwd().'/img/demandas/'.md5($d['id']).'.jpg')?'/img/demandas/'.md5($d['id']).'.jpg':'/img/avatar.jpg';
       
+      $saddr = "";
       if($latitude != null && $longitude != null) {
-        
-        $saddr          = $latitude.','.$longitude;
-        $daddr          = $demandas[$key]['Demanda']['latitude']!=""&&$demandas[$key]['Demanda']['longitude']!=""?$demandas[$key]['Demanda']['latitude'].','.$demandas[$key]['Demanda']['longitude']:$demandas[$key]['Demanda']['endereco'];
-        $url_rota       = "https://maps.google.com?saddr=$saddr&daddr=$daddr";
-        $descricao      = $d['descricao'];
-        $paciente       = $d['paciente'];
-        $doadores       = $d['doadores'];
-        $instituicao    = $d['instituicao'];
-        $endereco       = $d['endereco'];
-        $validade       = $d['validade'];
-        $colaborador    = $d['id_colaborador'];
-        $nm_colaborador = $demandas[$key]['Colaborador']['nome'];
-        $latitude       = $d['latitude'];
-        $longitude      = $d['longitude'];
-        $tipos_sangue   = $d['tipos_sangue'];
-        $id_local       = $d['id_local'];
-        $id             = $d['id'];
-        
-        $r[] = array(
-          'tipo'           => 'demanda',
-          'descricao'      => $descricao,
-          'paciente'       => $paciente,
-          'doadores'       => $doadores,
-          'instituicao'    => $instituicao,
-          'endereco'       => $endereco,
-          'validade'       => $validade,
-          'id_colaborador' => $colaborador,
-          'nm_colaborador' => $nm_colaborador,
-          'id'             => $id,
-          'latitude'       => $latitude,
-          'longitude'      => $longitude,
-          'id_local'       => $id_local,
-          'tipos_sangue'   => $tipos_sangue,
-          'img'            => $img,
-          'url_rota'       => $url_rota
-        );
-        
+        $saddr    = $latitude.','.$longitude;
       }
+      
+      $daddr    = $demandas[$key]['Demanda']['latitude']!=""&&$demandas[$key]['Demanda']['longitude']!=""?$demandas[$key]['Demanda']['latitude'].','.$demandas[$key]['Demanda']['longitude']:$demandas[$key]['Demanda']['endereco'];
+      
+      if($saddr!="") {
+        $url_rota = "https://maps.google.com?saddr=$saddr&daddr=$daddr";
+      }else{
+        $url_rota = "https://maps.google.com?daddr=$daddr";
+      }
+      
+      $descricao      = $d['descricao'];
+      $paciente       = $d['paciente'];
+      $doadores       = $d['doadores'];
+      $instituicao    = $d['instituicao'];
+      $endereco       = $d['endereco'];
+      $validade       = $d['validade'];
+      $colaborador    = $d['id_colaborador'];
+      $nm_colaborador = $demandas[$key]['Colaborador']['nome'];
+      $latitude       = $d['latitude'];
+      $longitude      = $d['longitude'];
+      $tipos_sangue   = $d['tipos_sangue'];
+      $id_local       = $d['id_local'];
+      $id             = $d['id'];
+      $distancia      = round(isset($value[0]['distancia'])?$value[0]['distancia']:0,2);
+
+      $r[] = array(
+        'tipo'           => 'demanda',
+        'descricao'      => $descricao,
+        'paciente'       => $paciente,
+        'doadores'       => $doadores,
+        'instituicao'    => $instituicao,
+        'endereco'       => $endereco,
+        'validade'       => $validade,
+        'id_colaborador' => $colaborador,
+        'nm_colaborador' => $nm_colaborador,
+        'id'             => $id,
+        'latitude'       => $latitude,
+        'longitude'      => $longitude,
+        'id_local'       => $id_local,
+        'tipos_sangue'   => $tipos_sangue,
+        'img'            => $img,
+        'url_rota'       => $url_rota,
+        'distancia'      => $distancia
+      );
       
     }
     
@@ -236,8 +249,6 @@ class LocalController extends AppController {
   private function getLatLng() {
     $retorno = null;
     $retorno['distancia'] = 0;
-    //$retorno['latitude'] = "-30.06324950";
-    //$retorno['longitude'] = "-51.17878120";
 
     if ($this->Session->check("colaborador.lat") && $this->Session->check("colaborador.lng")) {
       //Obtem informações da latitude e longitude adquiridos na página inicial, via GeoLocation

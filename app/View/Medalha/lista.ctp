@@ -16,8 +16,7 @@ echo $this->Html->css('demanda');
     text-align:center;
   }
   
-  
-  #lista_pontuacao h2 {
+  h2 {
     text-align:center;
     margin:0;
     padding:10px 0;
@@ -25,7 +24,6 @@ echo $this->Html->css('demanda');
   
   #lista_pontuacao table {
     width:100%;
-    border:1px solid #a4a3a3;
   }
   
   #lista_pontuacao table tbody td {
@@ -73,43 +71,99 @@ echo $this->Html->css('demanda');
   }
   
   #dv-badges-indicador-maos-dadas {
-    border:1px solid #000;
-    width:70%;
+    min-width:430px;
+    max-width:553px;
     margin:0 auto;
-    
+  }
+  
+  #dv-badges-indicador-maos-dadas img {
+    display:inline-block;
+    margin:0;
   }
   
   #dv-badges-indicador-maos-dadas .indicador-maos-dadas {
     float:left;
-    width:455px;
-    margin:0 auto;
-    background:#EFEFEF;
-  }
-  
-  #dv-badges-indicador-maos-dadas .indicador-maos-dadas .dv-fundo {
-    float:left;
-    height:70px;
-  }
-  
-  #dv-badges-indicador-maos-dadas .indicador-maos-dadas .dv-fundo-vermelho {
-    background:#D62A2A;
-    border:1px solid #D62A2A;
     width:70%;
+    margin:0 auto;
+  }
+  
+  #dv-badges-indicador-maos-dadas .indicador-maos-dadas .indicador {
+    dislay:block;
+    float:left;
+    width:10%;
+    height:60px;
+    margin:0;
+    padding:0;
+    background-size: cover !important;
+  }
+  
+  #dv-badges-indicador-maos-dadas ul .selecionado {
+    background-color:red !important;
+  }
+  
+  #dv-badges-indicador-maos-dadas ul {
+    margin:0;
+    list-style:none;
+    list-style-image: none;
+    padding:0;
+  }
+  
+  #dv-badges-indicador-maos-dadas .indicador-maos-dadas .indicador-par {
+    background: #f6f6f6 url('/img/img_maos_dadas_par.png') no-repeat;
+  }
+  
+  #dv-badges-indicador-maos-dadas .indicador-maos-dadas .indicador-impar {
+    background: #f6f6f6 url('/img/img_maos_dadas_impar.png') no-repeat;
+  }
+  
+  #lista_medalhas {
+    text-align:center;
+  }
+  
+  #lista_medalhas img {
+    height:60px;
+  }
+  
+  .marginBottom {
+    margin-bottom:35px;
   }
   
 </style>
 
+<?php if($tiposocial=='facebook') { ?>
+<h2>Seus compartilhamentos</h2>
 <div id="dv-badges-indicador-maos-dadas">
   <div class="indicador-maos-dadas">
-    <div class="dv-fundo dv-fundo-vermelho"></div>
-    <div class="img-maos-dadas"></div>
+    <ul>
+    <?php
+    for($i=0;$i<10;$i++) { ?>
+      <li class="indicador indicador-<?php echo $i%2==0?'par':'impar'?><?php echo $i<$ncomp?' selecionado':''?>"></li>
+    <?php } ?>
+    </ul>
   </div>
-  <img src="/img/img-igual.png" />
+  <?php if($proximaMedalhaCompartilhamento!=null) { ?>
+    <img src="/img/img-igual.png" height="60" />
+    <img src="/img/medalhas/<?php echo $proximaMedalhaCompartilhamento['imagem']?>" height="60" />
+  <?php } else { ?>
+    <strong><?php echo $ncomp?></strong>
+  <?php } ?>
 </div>
+<div class="noFloat marginBottom"></div>
+<?php } ?>
+
+<?php if($medalhas) { ?>
+<h2>Suas medalhas</h2>
+<div id="lista_medalhas">
+  <?php
+  foreach($medalhas as $k => $v) { ?>
+    <img title="<?php echo $v['Medalha']['descricao']?>" src="/img/medalhas/<?php echo $v['Medalha']['imagem']?>" />
+  <?php } ?>
+</div>
+<div class="noFloat marginBottom"></div>
+<?php } ?>
 
 <div id="lista_pontuacao">
   <?php
-  
   $pontos = 0;
   
   if($lst_pontos) { ?>
