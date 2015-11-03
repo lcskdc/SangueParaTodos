@@ -26,6 +26,7 @@
 
 @media screen and (max-width: 980px) {
     .menu_interno li {width:100%;}
+    #form-login {width:100%;}
 }
     
 .menu_interno li a {

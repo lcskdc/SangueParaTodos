@@ -1,5 +1,6 @@
 var user_id = null;
 var fbPicture = null;
+var usuarioId = null;
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
     if (response.status === 'connected') {
@@ -70,9 +71,19 @@ function facebookLogin(callback) {
             enabledControles();
         }
     }, {
-        scope: 'public_profile,email'
+        scope: 'public_profile,email,user_friends'
     });
     
+}
+
+function testeFacebookLogin() {
+    FB.api('/me?fields=picture,email,name,gender', function(response) {
+        url_img = response.picture.data.url;
+        var data = {email: response.email, nome: response.name, id: response.id, sexo: response.gender, urlImagem: url_img, tipo: 'facebook'}
+        console.log('resp: '+response);
+        efetuaLoginSocial(data, callback);
+    });
+    console.log('Passou aqui function teste');
 }
 
 /**
@@ -103,42 +114,57 @@ function getUsuarioFacebook(isLogout) {
     });
 }
 
-function compartilharSolicitacao(colaborador_id, solicitacao_id) {
+function compartilharSolicitacao(idUsuario, colaborador_id, solicitacao_id,callback) {
 
-    var gkey;
-    $.post('/Demanda/gera_identificacao', {solicitacao_id: solicitacao_id, colaborador_id: colaborador_id}, function(data) {
-        var gkey = $.parseJSON(data).chave;
-        var params = {};
-        var rnd_img = Math.ceil(Math.random() * 5);
-        var server = 'www.sangueparatodos.com.br';
-        //server = 'localhost:9090';
+    if(idUsuario>0) {
+        $.post('/Demanda/gera_identificacao', {solicitacao_id: solicitacao_id, colaborador_id: colaborador_id}, function(data) {
+            var gkey = $.parseJSON(data).chave;
+            var rnd_img = Math.ceil(Math.random() * 5);
+            var server = 'www.sangueparatodos.com.br';
+            //server = 'localhost:9090';
 
-        params['message'] = 'Doe sangue e salve vidas';
-        params['name'] = 'Doação de sangue';
-        params['description'] = 'Um amigo precisa de doações, você pode obter mais detalhes através do endereço http://' + server + '/Local/vdemanda?k=' + gkey + '&v={user-id}';
-        params['link'] = 'http://' + server + '/Local/vdemanda?k=' + gkey + '&v={user-id}';
-        params['picture'] = 'http://www.sangueparatodos.com.br/img/compartilhar-solicitacao-' + rnd_img + '.jpg';
-        params['caption'] = 'Sua ajuda pode salvar vidas';
-        params['fb_ref'] = gkey;
-        params['fb_source'] = 'home_multiline';
+            var params = {
+                method: 'feed',
+                message : 'Doe sangue e salve vidas',
+                name : 'Doação de sangue',
+                description : 'Um amigo precisa de doações, você pode obter mais detalhes através do endereço http://' + server + '/Local/vdemanda?k=' + gkey + '&v={user-id}',
+                link:'http://' + server + '/Local/vdemanda?k=' + gkey + '&v={user-id}',
+                picture:'http://www.sangueparatodos.com.br/img/compartilhar-solicitacao-' + rnd_img + '.jpg',
+                caption:'Sua ajuda pode salvar vidas',
+                fb_ref:gkey,
+                fb_source:'home_multiline'
+            };
 
-
-        $('#modalSolicitacaoCompartilhada .modal-body').html('<img src="/img/carregando_p.gif" />&nbsp;Estamos compartilhando a informação.');
-        $('#modalSolicitacaoCompartilhada').modal();
-
-        FB.api('/me/feed', 'post', params, function(response) {
-            if (!response || response.error) {
-                facebookLogin(function() {
-                    compartilharSolicitacao(colaborador_id, solicitacao_id);
-                });
-            } else {
-                $.post('/Demanda/compartilhado', {colaborador: colaborador_id, demanda: solicitacao_id}, function(data) {
-                    $('#modalSolicitacaoCompartilhada .modal-body').html('<img src="/img/compartilhar-solicitacao-1.jpg" height="60" />Obrigado por compartilhar esta solicitação.');
-                });
-            }
+            var opts = {};
+            
+            FB.ui(params,
+                function(response) {
+                  if (response && response.post_id) {
+                    $.post('/Demanda/compartilhado', {colaborador: colaborador_id, demanda: solicitacao_id});
+                    var msgHtml = '<p><img src="/img/compartilhar-solicitacao-1.jpg" />&nbsp;Obrigado por nos ajudar a divulgar uma solicitação.</p>';
+                    $('#modalSolicitacaoCompartilhada .modal-body').html(msgHtml);                    
+                    if(callback!=undefined) {
+                        $('#modalSolicitacaoCompartilhada .close').remove();
+                        $('#modalSolicitacaoCompartilhada .modal-body').append('<p><a href="/Local/demandas">Fechar esta janela</a></p>');
+                        opts = {backdrop:'static',keyboard:false};
+                    }
+                    $('#modalSolicitacaoCompartilhada').modal(opts);
+                  }
+                }
+            );
         });
-    });
+    }else{
+        facebookLogin(
+            function(){
+                compartilhaDemandaAposLogin(colaborador_id,solicitacao_id);
+            }
+        );
+    }
 
+}
+
+function compartilhaDemandaAposLogin(colaborador_id,solicitacao_id) {
+    compartilharSolicitacao(usuarioId,colaborador_id,solicitacao_id,'redirect');
 }
 
 function efetuaLoginSocial(send, callback) {
@@ -153,10 +179,24 @@ function efetuaLoginSocial(send, callback) {
      */
 
     $.post('/Login/loginSocial/', send, function(data) {
+        var ret = $.parseJSON(data);
+        usuarioId = ret.id;
         if (callback != undefined) {
             callback();
         } else {
             document.location.href = '/Login/interno/';
         }
     });
+}
+
+function disabledControles() {
+    if($('#info-processando-login').length==0) {
+        $('#btn-login').before('<div id="info-processando-login"><img src="/img/carregando_p.gif" align="absmiddle" />&nbsp;Processando seu pedido</div>');
+    }
+    $('#controles .btn, #email, #senha').attr('disabled','disabled');
+}
+
+function enabledControles() {
+    $('#info-processando-login').remove();
+    $('#controles .btn, #email, #senha').removeAttr('disabled');
 }

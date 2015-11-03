@@ -134,7 +134,6 @@ class Gamification extends AppModel {
   }
   
   public function atribuiMedalha($idColaborador, $medalha, $tipo) {
-    print_r($medalha);
     $medalha_id = $medalha['id'];
     $ColaboradorMedalha = new ColaboradorMedalha();
     $medalhaColaborador['colaborador_id'] = $idColaborador;

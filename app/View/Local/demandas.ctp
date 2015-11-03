@@ -31,10 +31,7 @@ $classes_css_sangue = array(
       <li>
         <div class="controles">
           <a class="rotacionar" href="/Local/demandas/<?php echo $obj['id_colaborador']?>"><img class="img-circle" title="Postado por <?php echo $obj['nm_colaborador']?>" src="<?php echo $obj['img']?>" /></a>
-          <?php if($tipo_social=='facebook') { ?>
-            <a title="Compartilhar via Facebook" class="btn-compartilhar-solicitacao rotacionar" href="#self" onclick="compartilharSolicitacao(<?php echo $obj['id_colaborador']?>, <?php echo $obj['id']?>)"></a>
-          <?php } ?>
-          
+          <a title="Compartilhar via Facebook" class="btn-compartilhar-solicitacao rotacionar" href="#self" onclick="compartilharSolicitacao(<?php echo $colaborador_id?>, <?php echo $obj['id_colaborador']?>, <?php echo $obj['id']?>)"></a>
           <?php if($obj['url_rota']!="") { ?>
             <a class="rotacionar" title="Visualizar no mapa" href="<?php echo $obj['url_rota']?>" target="_blank"><img width="50" alt="Veja no mapa como chegar" class="img-circle" src="/img/icon_mapa_rota_60.png" /></a>
           <?php } ?>
@@ -92,7 +89,6 @@ $classes_css_sangue = array(
     </div>
   </div>
 </div>
-
 
 <div class="modal fade" id="modalDenunciarErro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

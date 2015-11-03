@@ -40,7 +40,7 @@ echo $this->Html->script('/js/home.js');
           <?php foreach($topDoadores as $k => $v) {  ?>
           <tr>
             <td class="td-right"><img src="<?php echo $v['img']?>" class="img-circle" /><span class="label lbl-pontos" data-toggle="tooltip" data-placement="top" title="<?php echo $v['pontos']?> <?php echo $v['pontos']>1?'pontos':'ponto'?>"><?php echo $v['pontos']?></span></td>
-            <td><?php echo $v['colaborador']?></td>
+            <td title="<?php echo $v['colaborador']?>"><?php echo strlen($v['colaborador'])>25?substr($v['colaborador'],0,25).'...':$v['colaborador']?></td>
           </tr>
           <?php
           } ?>
@@ -58,7 +58,7 @@ echo $this->Html->script('/js/home.js');
           <?php foreach($topDivulgadores as $k => $v) {  ?>
           <tr>
             <td class="td-right"><img src="<?php echo $v['img']?>" class="img-circle" /><span class="label lbl-divulgacoes" data-toggle="tooltip" data-placement="top" title="<?php echo $v['divulgacoes']?> <?php echo $v['divulgacoes']>1?'divulgações':'divulgação'?>"><?php echo $v['divulgacoes']?></span></td>
-            <td><?php echo $v['colaborador']?></td>
+            <td title="<?php echo $v['colaborador']?>"><?php echo strlen($v['colaborador'])>25?substr($v['colaborador'],0,25).'...':$v['colaborador']?></td>
           </tr>
           <?php
           } ?>
@@ -71,6 +71,8 @@ echo $this->Html->script('/js/home.js');
 
   </div>
 
+  <div class="noFloat">&nbsp;</div>
+  
   <div class="dv-controles-rodape">
     <a href="https://github.com/lcskdc/SangueParaTodos" target="_blank" title="Fork this project"><img src="/img/github-logo.png" /></a>
     <img class="separador" src="/img/separador_200.png" />
@@ -79,6 +81,18 @@ echo $this->Html->script('/js/home.js');
     <img src="/img/icon-responsivo.png" />
   </div>
   
+  <div class="alert alert-info">
+    <p>
+      Estamos quase! Esta é a reta final.<br />
+      Para concluir a disciplina de <strong>TCC-2</strong> devo entregar o resultado da <strong>validação do projeto</strong>, você poderia me ajudar respondendo o questionário de validação através do link abaixo
+    </p>
+    <p>
+      <a href="https://docs.google.com/forms/d/1M_SPxBEo_krshLdKyVPCHAM3OGGu0ukCKR6dF-XBEvo/viewform" target="_blank">https://docs.google.com/forms/d/1M_SPxBEo_krshLdKyVPCHAM3OGGu0ukCKR6dF-XBEvo/viewform</a>
+    </p>
+    <p>
+      Muito obrigado pelo apoio!
+    </p>
+  </div>
   
 </div>
 
@@ -127,9 +141,43 @@ echo $this->Html->script('/js/home.js');
   </div>
 </div>
 
+<div class="modal fade" id="modalInfoFormValidacao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sangue para todos</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Estamos quase! Esta é a reta final.<br />
+          Para concluir a disciplina de <strong>TCC-2</strong> devo entregar o resultado da <strong>validação do projeto</strong>, você poderia me ajudar respondendo o questionário de validação através do link abaixo
+        </p>
+        <p>
+          <a id="a-form-validacao" href="https://docs.google.com/forms/d/1M_SPxBEo_krshLdKyVPCHAM3OGGu0ukCKR6dF-XBEvo/viewform" target="_blank">https://docs.google.com/forms/d/1M_SPxBEo_krshLdKyVPCHAM3OGGu0ukCKR6dF-XBEvo/viewform</a>
+        </p>
+        <p>
+          Muito obrigado pelo apoio!
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script language="javascript">
   $(function() {
+    
+    <?php if($mostra_validacao=='S'){ ?>
+      $('#modalInfoFormValidacao').modal();  
+    <?php } ?>
+    $('#a-form-validacao').click(function(){
+      $('#modalInfoFormValidacao').modal("hide");
+    });
+    
+    
     $('[data-toggle="tooltip"]').tooltip()
 
     $('.icon-minha-localizacao').click(function(){

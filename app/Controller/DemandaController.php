@@ -229,24 +229,33 @@ class DemandaController extends AppController {
   public function compartilhado() {
       $this->layout = "ajax";
       $this->autoRender = false;
-      $colaborador = $this->Session->read('colaborador.id');
-      $demanda = $this->request['data']['demanda'];
+      $colaborador_id = $this->Session->read('colaborador.id');
+      $colaborador = $this->request['data']['colaborador'];
+      $solicitacao = $this->request['data']['demanda'];
       $this->loadModel("Gamification");
       $Gamification = new Gamification();
       
-      $gm = $Gamification->find('all',array(
-        'conditions' => array(
-          'colaborador_id' => $colaborador,
-          'demanda_id' => $demanda
-        )
-      ));
+      $ref = $this->referer();
+      $this->loadModel('DemandasCompartilhadas');
+      $DemandasCompartilhadas = new DemandasCompartilhadas();    
+      $r = $DemandasCompartilhadas->find('first',array('conditions'=>array('colaborador_id' => $colaborador_id, 'solicitacao' => $solicitacao)));
       
-      if(!$gm && !empty($colaborador)) { //Se não houve resultado de compartilhamento desta demanda, então registra.
-        $gm['colaborador_id'] = $colaborador;
+      if(!$r && !empty($colaborador)) { //Se não houve resultado de compartilhamento desta demanda, então registra.
+        $gm['colaborador_id'] = $colaborador_id;
         $gm['pontos'] = 50; //Após o primeiro acesso, passará para 5 pontos
-        $gm['demanda_id'] = $demanda;
+        $gm['demanda_id'] = $solicitacao;
         $gm['tipo_id'] = 1; //compartilhado facebook
         $Gamification->save($gm);
+
+        $chave = md5($colaborador_id.'@'.$solicitacao);
+        $dc['chave']          = $chave;
+        $dc['solicitacao']    = $solicitacao;
+        $dc['colaborador']    = $colaborador;
+        $dc['colaborador_id'] = $colaborador_id;
+        $dc['tipo_id']        = 1;
+        $dc['href']           = $ref;
+        $DemandasCompartilhadas->save($dc);
+        
       }
       
   }
@@ -254,26 +263,9 @@ class DemandaController extends AppController {
   public function gera_identificacao() {
     $this->layout = 'ajax';
     $this->autoRender = false;
-    $colaborador = $this->request['data']['colaborador_id'];
     $solicitacao = $this->request['data']['solicitacao_id'];
     $colaborador_id = $this->Session->read('colaborador.id');
-    $result['chave'] = md5($colaborador.'@'.$solicitacao);
-    
-    $ref = $this->referer();
-    $this->loadModel('DemandasCompartilhadas');
-    $DemandasCompartilhadas = new DemandasCompartilhadas();    
-    
-    $r = $DemandasCompartilhadas->find('first',array('conditions'=>array('chave' => $result['chave'])));
-    if(!$r) {
-      $dc['chave']          = $result['chave'];
-      $dc['solicitacao']    = $solicitacao;
-      $dc['colaborador']    = $colaborador;
-      $dc['colaborador_id'] = $colaborador_id;
-      $dc['tipo_id']        = 1;
-      $dc['href']           = $ref;
-      $DemandasCompartilhadas->save($dc);
-    }
-    
+    $result['chave'] = md5($colaborador_id.'@'.$solicitacao);
     echo json_encode($result);
   }
   

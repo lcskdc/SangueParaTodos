@@ -142,6 +142,7 @@
     width:60%;
     min-height:200px;
     padding:10px;
+    border-bottom:1px solid #E9E9E9;
 }
 
 
@@ -208,10 +209,6 @@
     -ms-transform: rotate(360deg) scale(1) skew(1deg) translate(0px);
 }
 
-.demandas {
-  padding:0 40px;
-}
-
 .descricao_demanda {
   line-height:15px;
   padding:18px 0;
@@ -238,6 +235,7 @@
     .banner {display:none;}
     .dv-controles-rodape img {display:block;margin:0 auto;}
     .dv-controles-rodape .separador {display:none;}
+    #form-cadastro {width:100%;}
     
 }
 

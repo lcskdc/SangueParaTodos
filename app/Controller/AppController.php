@@ -45,6 +45,14 @@ class AppController extends Controller {
 
     $this->set('imagem', $this->Session->read("colaborador.imagem"));
     $this->set('mostraMensagem', $this->Session->check('colaborador.mostraMensagem') ? false : true);
+    
+    if($this->Session->check('colaborador.mostra_validacao')) {
+      $this->set('mostra_validacao','N');
+    } else {
+      $this->Session->write('colaborador.mostra_validacao','S');
+      $this->set('mostra_validacao','S');
+    }
+    
     if ($this->Session->check('sangue.restante')) {
       $this->set('evento_tempo_restante', $this->Session->read('sangue.restante'));
     }

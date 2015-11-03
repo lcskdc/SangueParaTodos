@@ -1,14 +1,6 @@
-#frmDemanda {
-    width:500px;
-}
-
-#descricao {
-    height:100px;
-}
-
-#doadores {
-    width:90px;
-}
+#frmDemanda {width:500px;}
+#descricao {height:100px;}
+#doadores {width:90px;}
 
 #validade {
     width:130px;
@@ -62,3 +54,6 @@
 
 .msgDemanda p {text-align:center;}
 
+@media screen and (max-width: 980px) {
+    #frmDemanda {width:100%;}
+}

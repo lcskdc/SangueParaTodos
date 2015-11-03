@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title>Your Website Title</title>
+    <!-- You can use open graph tags to customize link previews.
+    Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+    <meta property="og:url"           content="http://sangueparatodos.com.br/Login" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Sangue Para Todos" />
+    <meta property="og:description"   content="Uma pessoa doou sangue e isso foi muito legal." />
+    <meta property="og:image"         content="http://sangueparatodos.com.br/img/compartilhar-solicitacao-1.jpg" />
+    <script language="javascript" src="/js/facebook.js"></script>
+</head>
+<body>
+
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Your share button code -->
+    <div class="fb-share-button" 
+        data-href="http://sangueparatodos.com.br/Login/" 
+        data-layout="button_count">
+    </div>
+
+    <a href="#self" onclick="testeShare();">Teste share</a>
+    
+    <script language="javascript">
+    function testeShare(){ 
+        FB.ui(
+            {
+              method: 'feed',
+              name: 'Facebook Dialogs',
+              link: 'https://developers.facebook.com/docs/dialogs/',
+              picture: 'http://fbrell.com/f8.jpg',
+              caption: 'Reference Documentation',
+              description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
+            },
+            function(response) {
+              console.log(response);
+              if (response && response.post_id) {
+                alert('Post was published.');
+              } else {
+                alert('Post was not published.');
+              }
+            }
+        );
+    }
+    </script>
+    
+</body>
+</html>

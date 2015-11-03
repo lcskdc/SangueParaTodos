@@ -63,7 +63,7 @@ $imagem = $this->Session->read("colaborador.imagem");
           <!-- imagem cache -->  
           <img class="imagem-cache" src="/img/coracao_batendo.gif" />
           <div id="header">
-
+            
             <div id="dv-info-user">
             <?php if(isset($evento_tempo_restante)) { ?>
               <div title="Restam <?php echo $evento_tempo_restante?> dias para uma nova doação de sangue." class="badge-indica-restante"><div>Restam <?php echo $evento_tempo_restante?> dias para uma nova doação de sangue.</div></div>
@@ -97,14 +97,26 @@ $imagem = $this->Session->read("colaborador.imagem");
               
               <div id="menu-sup">  
                 <ul class="menu">
-                  <li><a href="/">Início</a>	</li>
-                  <li><a href="/Local/demandas/">Solicitações realizadas</a></li>
-                  <li><a href="/Demanda/cadastro">Solicitar doação</a></li>
+                  <li>
+                    <a href="/" title="Voltar para a página inicial"><img src="/img/icon-menu-home.png"><span>&nbsp;Início</span></a>
+                  </li>
+                  <li>
+                    <a title="Visualizar as solicitações registradas" href="/Local/demandas/"><img src="/img/icon-menu-solicitacao-lista.png" /><span>&nbsp;Solicitações realizadas</span></a>
+                  </li>
+                  <li>
+                    <a title="Registrar uma solicitação de doação de sangue" href="/Demanda/cadastro"><img src="/img/icon-menu-solicitacao.png" /><span>&nbsp;Solicitar doação</span></a>
+                  </li>
                   <?php if ($this->Session->read('colaborador.id') > 0) { ?>
-                  <li><a href="/Login/interno/">Área interna</a><input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $this->Session->read('colaborador.id')?>" /><input type="hidden" name="id_social" id="id_social" value="<?php echo $this->Session->read('colaborador.id_social')?>" /></li>
+                    <li>
+                      <a title="Área interna" href="/Login/interno/"><img src="/img/icon-menu-areainterna.png" /><span>Área interna</span></a><input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $this->Session->read('colaborador.id')?>" /><input type="hidden" name="id_social" id="id_social" value="<?php echo $this->Session->read('colaborador.id_social')?>" />
+                    </li>
                   <?php } else { ?>
-                  <li><a href="/Login/cadastro">Cadastro</a></li>
-                  <li><a href="/Login">Login</a></li>
+                    <li>
+                      <a title="Cadastro" href="/Login/cadastro"><img src="/img/icon-menu-cadastro.png" /><span>&nbsp;Cadastro</span></a>
+                    </li>
+                    <li>
+                      <a title="Acesso ao portal" href="/Login"><img src="/img/icon-menu-login.png" /><span>&nbsp;Login</span></a>
+                    </li>
                   <?php } ?>
                 </ul>
               </div>
