@@ -96,6 +96,7 @@ class DemandaController extends AppController {
       $this->set('idLocal', $idLocal);
       $this->set('nmUsuario', $nmUsuario);
       $this->set('tipos_sangue', $tipos_sangue);
+      $this->set('verificado','S');
 
       $this->Session->write('colaborador.nmUsuario', $nmUsuario);
 

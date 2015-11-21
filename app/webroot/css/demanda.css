@@ -1,4 +1,7 @@
-#frmDemanda {width:500px;}
+#frmDemanda {
+    min-width:380px;
+    max-width:590px;
+}
 #descricao {height:100px;}
 #doadores {width:90px;}
 

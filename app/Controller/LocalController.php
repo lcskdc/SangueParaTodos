@@ -34,7 +34,6 @@ class LocalController extends AppController {
    // App::import("Vendor", "FacebookAuto", array("file" => "Facebook/autoload.php"));
     
     $server = 'http://sangueparatodos.com.br/';
-    $server = 'http://localhost:9090/';
     
     $this->layout = 'ajax';
     $this->autoRender = false;
@@ -83,15 +82,50 @@ class LocalController extends AppController {
     //$this->redirect('/Local/demandas/'.$r[0]['DemandasCompartilhadas']['colaborador'].'/'.$r[0]['DemandasCompartilhadas']['solicitacao'].'?chave='.$r[0]['DemandasCompartilhadas']['chave']);
   }
 
+  public function itens_proximos($latitude, $longitude, $distancia=22.5) {
+    $this->layout = 'ajax';
+    $this->autoRender = false;
+    $sqlFiltroDistancia = "HAVING distancia <= $distancia";
+      $sql = "SELECT 
+            locais.*,
+            (((acos(sin(($latitude*pi()/180)) * 
+                sin((latitude*pi()/180))+cos(($latitude*pi()/180)) * 
+                cos((latitude*pi()/180)) * cos((($longitude-longitude)* 
+                pi()/180))))*180/pi())*60*1.609344
+            ) as distancia
+          FROM locais
+          WHERE ativo = 'S'
+          $sqlFiltroDistancia
+          ORDER BY distancia
+          LIMIT 5";
+      $demandas = $this->Local->query($sql);
+      foreach($demandas as $k => $v) {
+        $endereco = $v['locais']['endereco'];
+        if($v['locais']['bairro']!="") {
+          $endereco .= ', '.$v['locais']['bairro'];
+        }
+        if($v['locais']['cidade']!="") {
+          $endereco .= ', '.$v['locais']['cidade'];
+        }
+        if($v['locais']['UF']!="") {
+          $endereco .= ', '.$v['locais']['UF'];
+        }
+        $results[] = array('id' => $v['locais']['id'], 'nome' => $v['locais']['nome'], 'endereco' => $endereco, 'distancia' => round($v[0]['distancia'],2));
+      }
+      echo json_encode($results);
+  }
+  
   public function buscaItensProximos($distancia = 15, $id_colaborador = 0, $id_demanda = 0, $consulta_sem_registros = false, $consulta_locais = false) {
     
     $r = array();
     $ret = $this->getLatLng();
     //$this->loadModel('Gamification');
     
+    //echo '<pre>',print_r($this->Session->read('colaborador')),'<pre>';
+    
     if( $this->Session->check('colaborador.lat') && $this->Session->check('colaborador.lng') ) {
-      $latitude  = $ret['latitude'];
-      $longitude = $ret['longitude']; 
+      $latitude  = $this->Session->read('colaborador.lat');
+      $longitude = $this->Session->read('colaborador.lng');
     } else if(isset($ret['latitude'])){
       $latitude  = $ret['latitude'];
       $longitude = $ret['longitude'];
@@ -115,20 +149,19 @@ class LocalController extends AppController {
           $sqlFiltroDistancia
           ORDER BY distancia
           LIMIT 20";
-      
       $demandas = $this->Local->query($sql);
 
       foreach($demandas as $key => $value) {
         $descricao = $value['locais']['nome'];
-        $latitude  = $value['locais']['latitude'];
-        $longitude = $value['locais']['longitude'];
+        $lat  = $value['locais']['latitude'];
+        $lng = $value['locais']['longitude'];
         $endereco  = $value['locais']['endereco'].', '.$value['locais']['cidade'].' <br />'.$value['locais']['telefone'];
         $r[] = array(
           'tipo'           => 'local',
           'descricao'      => $descricao,
           'endereco'       => $endereco,
-          'latitude'       => $latitude,
-          'longitude'      => $longitude
+          'latitude'       => $lat,
+          'longitude'      => $lng
         );
       }
     }
@@ -199,8 +232,8 @@ class LocalController extends AppController {
       $validade       = $d['validade'];
       $colaborador    = $d['id_colaborador'];
       $nm_colaborador = $demandas[$key]['Colaborador']['nome'];
-      $latitude       = $d['latitude'];
-      $longitude      = $d['longitude'];
+      $lat            = $d['latitude'];
+      $lng            = $d['longitude'];
       $tipos_sangue   = $d['tipos_sangue'];
       $id_local       = $d['id_local'];
       $id             = $d['id'];
@@ -217,8 +250,8 @@ class LocalController extends AppController {
         'id_colaborador' => $colaborador,
         'nm_colaborador' => $nm_colaborador,
         'id'             => $id,
-        'latitude'       => $latitude,
-        'longitude'      => $longitude,
+        'latitude'       => $lat,
+        'longitude'      => $lng,
         'id_local'       => $id_local,
         'tipos_sangue'   => $tipos_sangue,
         'img'            => $img,
@@ -259,8 +292,10 @@ class LocalController extends AppController {
       $retorno['distancia'] = 15;
     } else if ($this->Session->check("colaborador.nome_cidade") && $this->Session->check("colaborador.uf")) {
       //Obtem a localização via Google, com base no estado e cidade, caso cadastrados pelo usuário.
+      $apiKey = "AIzaSyDkQM_9jthNzt81uCaLzpiu7lY39KWzGEw";
       $endereco = urlencode($this->Session->read("colaborador.nome_cidade") . ' ' . $this->Session->read("colaborador.uf"));
-      $url_json_address = "http://maps.google.com/maps/api/geocode/json?address=$endereco&sensor=false";
+      //$url_json_address = "https://maps.googleapis.com/maps/api/geocode/json?address=$endereco&sensor=false&key=$apiKey";
+      $url_json_address = "https://maps.googleapis.com/maps/api/geocode/json?address=$endereco&sensor=false";
       $resp_json_address = file_get_contents($url_json_address);
       $resp = json_decode($resp_json_address);
       if ($resp->results[0]->geometry->location->lat) {

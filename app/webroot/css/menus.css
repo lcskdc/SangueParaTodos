@@ -63,9 +63,13 @@
 }
 
 @media screen and (max-width: 540px) {
-    .img-logo {background:url("/img/logo-menor.png") no-repeat center bottom;}
+    .img-logo {background:url("/img/logo-menor.png") no-repeat;}
     .dv-home-mapa, #dv-home .dv-ranking {width:100% !important;float:none !important;}
     .btn_facebook {width:100%;margin:0;}
+}
+
+@media screen and (mix-width: 1600px) {
+    .img-logo {background:url("/img/logo-menor.png") no-repeat;}
 }
 
 button {

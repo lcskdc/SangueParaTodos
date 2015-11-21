@@ -45,9 +45,9 @@ $classes_css_sangue = array(
         <p><strong>Local: </strong><?php echo $obj['instituicao']?></p>
         <p>
           <?php if($obj['id_local']>0){ ?>
-          <img height="24" style="float:left;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|F56A58" title="Local pré cadastrado" />
+          <img height="24" style="float:left;" src="/img/green-dot.png" title="Local pré cadastrado" />
           <?php } else { ?>
-          <img height="24" style="float:left;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|5477EB" title="Local cadastrado pelo usuário" />
+          <img height="24" style="float:left;" src="/img/blue-dot.png" title="Local cadastrado pelo usuário" />
           <?php } ?>
           &nbsp;<?php echo $obj['endereco']?>
           <?php if($obj['distancia']>0) { ?> (<a target="_blank" href="<?php echo $obj['url_rota']?>" title="Visualizar no mapa"><?php echo $obj['distancia']?> km</a>)<?php } ?>

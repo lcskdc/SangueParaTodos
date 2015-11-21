@@ -86,9 +86,14 @@
     background:#727272;
 }
 
+.menu_interno .aindicar {
+    background:#FF3300;
+}
+
 #dv-login {
     margin:0 auto;
-    width:400px;
+    width:380px;
+    min-width:380px;
 }
 
 .alinhadoDireita {   
@@ -99,7 +104,7 @@
 #controles {width:300px;margin:0 auto;padding:0;}
 #btn-login {width:100%;}
 #btn-login-facebook, #btn-login-gplus, #btn-login-twitter {width:100%;}
-
+#btn-cadastro {width:220px;}
 
 .a-esqueceu-senha {
     display:block;

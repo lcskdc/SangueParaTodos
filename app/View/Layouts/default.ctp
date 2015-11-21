@@ -26,15 +26,16 @@ $imagem = $this->Session->read("colaborador.imagem");
     //}
     
     echo $this->Html->script('jquery');
+    echo $this->Html->script('googleplus');
     echo $this->Html->script('https://maps.googleapis.com/maps/api/js?v=3.exp');
+    echo $this->Html->script('localizacao');
     
     echo $this->Html->script('menu');
     echo $this->Html->script('facebook');
-    echo $this->Html->script('googleplus');
     
     echo $this->Html->script('/css/bootstrap/js/bootstrap.min.js');
     echo $this->Html->script('jquery.mask');
-    echo $this->Html->script('localizacao');
+
     
     if($ctrl=="demanda") {
       echo $this->Html->script('jquery.autocomplete');
@@ -101,10 +102,10 @@ $imagem = $this->Session->read("colaborador.imagem");
                     <a href="/" title="Voltar para a página inicial"><img src="/img/icon-menu-home.png"><span>&nbsp;Início</span></a>
                   </li>
                   <li>
-                    <a title="Visualizar as solicitações registradas" href="/Local/demandas/"><img src="/img/icon-menu-solicitacao-lista.png" /><span>&nbsp;Solicitações realizadas</span></a>
+                    <a title="Visualizar as solicitações registradas" href="/solicitacoes"><img src="/img/icon-menu-solicitacao-lista.png" /><span>&nbsp;Solicitações realizadas</span></a>
                   </li>
                   <li>
-                    <a title="Registrar uma solicitação de doação de sangue" href="/Demanda/cadastro"><img src="/img/icon-menu-solicitacao.png" /><span>&nbsp;Solicitar doação</span></a>
+                    <a title="Registrar uma solicitação de doação de sangue" href="/solicitar-doacao"><img src="/img/icon-menu-solicitacao.png" /><span>&nbsp;Solicitar doação</span></a>
                   </li>
                   <?php if ($this->Session->read('colaborador.id') > 0) { ?>
                     <li>
@@ -112,10 +113,10 @@ $imagem = $this->Session->read("colaborador.imagem");
                     </li>
                   <?php } else { ?>
                     <li>
-                      <a title="Cadastro" href="/Login/cadastro"><img src="/img/icon-menu-cadastro.png" /><span>&nbsp;Cadastro</span></a>
+                      <a title="Cadastro" href="/cadastro"><img src="/img/icon-menu-cadastro.png" /><span>&nbsp;Cadastro</span></a>
                     </li>
                     <li>
-                      <a title="Acesso ao portal" href="/Login"><img src="/img/icon-menu-login.png" /><span>&nbsp;Login</span></a>
+                      <a title="Acesso ao portal" href="/Login"><img src="/img/icon-menu-login.png" /><span>&nbsp;Acessar</span></a>
                     </li>
                   <?php } ?>
                 </ul>

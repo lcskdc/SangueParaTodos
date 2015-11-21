@@ -55,6 +55,86 @@ class LoginController extends AppController {
     }
   }
   
+  public function indicacao() {
+    
+    $erros = array();
+    $email_enviado = false;
+    
+    if($this->Session->check('colaborador.id')) {
+      $this->loadModel('ColaboradorIndicacao');
+      $this->loadModel("Colaborador");
+      
+      if(isset($this->params['url']['chave'])) {
+        $chave = $this->params['url']['chave'];
+        $consulta = $this->ColaboradorIndicacao->find('first',array('conditions' => array('ColaboradorIndicacao.chave' => $chave)));
+        if($consulta) {
+          $this->Session->write('sangue.id_indicacao',$consulta['ColaboradorIndicacao']['colaborador_id']);
+        }
+        $this->redirect('/cadastro');
+      } elseif ($this->request->isPost()) {
+        $email_indicado = $this->request['data']['email'];
+        $nome_indicado = trim($this->request['data']['nome']);
+        $resposta = $this->request['data']['resposta'];
+        
+        $existente = $this->Colaborador->find('first',array('conditions' => array('email' => $email_indicado)));
+        
+        if(!Validation::email($email_indicado, true)) {
+          $erros[] = "Verifique se o e-mail digitado está correto.<br />";
+        } elseif ($nome_indicado == "") {
+          $erros[] = "O campo nome deve ser informado.<br />";
+        } elseif ($resposta != $this->Session->read('captcha.resposta')) {
+          $erros[] = "A resposta informada está incorreta.<br />";
+        } elseif ($existente) {
+          $erros[] = "O usuário indicado já está cadastrado.<br />";
+        } else {
+          $colaborador_id = $this->Session->read('colaborador.id');
+          $colaborador = $this->Colaborador->find('first',array('conditions' => array('id' => $colaborador_id)));
+          
+          $chave = md5($colaborador_id.$email_indicado);
+          
+          $consulta = $this->ColaboradorIndicacao->find('all',array('conditions' => array('ColaboradorIndicacao.chave' => $chave)));
+          if(!$consulta) {
+            $indicacao['email'] = $email_indicado;
+            $indicacao['nome'] = $nome_indicado;
+            $indicacao['colaborador_id'] = $colaborador_id;
+            $indicacao['chave'] = $chave;
+            $this->ColaboradorIndicacao->save($indicacao);
+          }
+          
+          App::uses('CakeEmail', 'Network/Email');
+          $Email = new CakeEmail('gmail');
+          $Email->from(array('lcskdc@gmail.com' => 'Sangue para todos'));
+          $Email->to($email_indicado);
+          $Email->subject('Indicação Sangue Para Todos');
+          $msg = "Olá, um amigo nos indicou.\n\nSe você tiver interesse, pode se cadastrar em nosso portal, e ajudar-nos a salvar vidas.\n\n<a href=\"http://www.sangueparatodos.com.br/Login/indicacao?chave=$chave\">Cadastre-se</a>";
+          $Email->send($msg);
+          $email_enviado = true;
+          
+        }
+        
+        if(count($erros)>0) {
+          $this->set('erros',implode('<br />',$erros));
+        }
+        $this->set('email',$email_indicado);
+        $this->set('nome',$nome_indicado);
+      } else {
+        $this->set('email','');
+        $this->set('nome','');
+      }
+      
+      if(!$email_enviado) {
+        $this->Captcha = $this->Components->load('Captcha');
+        $captcha = $this->Captcha->getQuestao();
+        $this->Session->write('captcha.resposta',$captcha['resposta']);
+        $this->set('questao',$captcha['questao']);
+      } else {
+        $this->set('email_enviado','Enviamos um e-mail contendo as instruções para redefinir sua senha. Caso não tenha recebido, verifique em sua pasta de "SPAM".');
+      }
+      
+    }
+    
+  }
+  
   public function redefinir_senha() {
     $hash = $this->params['url']['hash'];
     $this->loadModel('EsqueceuSenha');
@@ -148,8 +228,9 @@ class LoginController extends AppController {
     
     App::uses('CakeTime', 'Utility');
     
+    $erros = array();
+  
     $this->loadModel('Colaborador');
-    
     $this->loadModel('TipoSanguineo');
     $tipos_sanguineos = $this->TipoSanguineo->find('list', array('fields' => array('TipoSanguineo.descricao', 'TipoSanguineo.descricao')));
     $this->set('tiposSanguineos', $tipos_sanguineos);
@@ -408,11 +489,14 @@ class LoginController extends AppController {
     try {
         $imgDefault = 'http://sangueparatodos.com.br/img/avatar.jpg';
         $urlImagem = $this->Session->check('colaborador.imagem')?$this->Session->read('colaborador.imagem'):"http://www.gravatar.com/avatar/" . md5( strtolower(trim($Colaborador['email']))) . "?d=" . urlencode($imgDefault) . "&s=40";
+        //echo 'Abriu imagem: '.$urlImagem.'<br />';
+        @unlink(getcwd().'/img/usuarios/'.md5($Colaborador['email']).'.jpg');
         $handle = fopen(getcwd().'/img/usuarios/'.md5($Colaborador['email']).'.jpg','a+');
         $strImg = file_get_contents($urlImagem);
         fwrite($handle,$strImg,strlen($strImg));
         fclose($handle);
     } catch ( Exception $e ) {
+      print_r($e);
         //Código de erro, upload de imagem
     }
     
@@ -441,7 +525,17 @@ class LoginController extends AppController {
       $sexo = strtoupper(substr($this->request->data('sexo'), 0, 1));
       if (!$colaborador) {
         $cadastro['Colaborador']['nome'] = $this->request->data('nome');
-        $cadastro['Colaborador']['email'] = $this->request->data('email');
+        
+        if($this->request->data('tipo')=='facebook') {
+          if(!$this->request->data('email')) {
+            $cadastro['Colaborador']['email'] = $this->request->data('id').'@facebook.com';
+          } else {
+            $cadastro['Colaborador']['email'] = $this->request->data('email');
+          }
+        } else {
+          $cadastro['Colaborador']['email'] = $this->request->data('email');
+        }
+        
         $cadastro['Colaborador']['senha'] = $this->Colaborador->geraSenha();
         $cadastro['Colaborador']['sexo'] = $sexo;
         $cadastro['Colaborador']['id_social'] = $this->request->data('id');
@@ -461,8 +555,11 @@ class LoginController extends AppController {
       $this->Colaborador->set($cadastro);
       $this->Colaborador->save();
       $errors = $this->Colaborador->validationErrors;
+
       $colaborador_id = !$colaborador?$this->Colaborador->getLastInsertId():$colaborador['Colaborador']['id'];
-      $this->salvaPontuacaoCadastro($colaborador_id, null);
+      if($colaborador_id>0 && !$errors) {
+        $this->salvaPontuacaoCadastro($colaborador_id, null);
+      }
       
       $colaborador = $this->Colaborador->find('first', array(
         'conditions' => array(
@@ -470,13 +567,14 @@ class LoginController extends AppController {
           'not' => array('id_social' => null)
         )
       ));
-
+      $this->Session->write('colaborador.imagem', $this->request->data('urlImagem'));
       $this->salvaSessao($colaborador['Colaborador']);
     } else {
+      $this->Session->write('colaborador.imagem', $this->request->data('urlImagem'));
       $colaborador_id = $colaborador['Colaborador']['id'];
       $this->salvaSessao($colaborador['Colaborador']);
     }
-    $this->Session->write('colaborador.imagem', $this->request->data('urlImagem'));
+    
     echo json_encode(array('id' => $colaborador_id));
   }
 

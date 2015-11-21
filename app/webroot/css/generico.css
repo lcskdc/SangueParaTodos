@@ -80,6 +80,7 @@ p {
 #header{
     padding: 0;
     width:100%;
+    min-height:240px;
 }
 
 #header h1 {

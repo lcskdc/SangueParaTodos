@@ -8,7 +8,7 @@ $(function() {
     });
     
     $('#aceite-termo-de-uso').change(function(){
-       $('#btn-login').prop('disabled',!$(this).prop('checked'));
+       $('#btn-cadastro').prop('disabled',!$(this).prop('checked'));
     });
 
     $('#alterar-senha').click(function() {

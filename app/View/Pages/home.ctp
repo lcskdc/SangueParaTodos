@@ -16,17 +16,25 @@ echo $this->Html->script('/js/home.js');
   <div class="dv-home-mapa">
     <div class="setaabaixo">
       <div class="seta">
-        <img src="/img/coracao_batendo.gif" />&nbsp;Locais próximas a você <a href="#self" title="Saiba mais" data-toggle="modal" data-target="#modalInfoGeoLocalizacao"><img src="/img/icone-mais.gif" /></a>
+        <img src="/img/coracao_batendo.gif" />&nbsp;Locais próximas a você <a href="#self" title="Saiba mais" data-toggle="modal" data-target="#modalInfoGeoLocalizacao"><img src="/img/icone-mais.png" align="absmiddle" /></a>
         <a href="#self" class="icon-minha-localizacao" title="Localização do navegador"><span data-toggle="tooltip" data-placement="bottom" title="Localização do navegador"><img width="40" src="/img/icon_mylocation.png" /></span></a>
         <a href="#self" class="icon-edit-localizacao" title="Alterar localização"><span data-toggle="tooltip" data-placement="bottom" title="Alterar localização"><img src="/img/alterar_localizacao.png" /></span></a>
       </div>
     </div>
     <div id="mapa" class="mapa mapa-loading"></div>
-    <p class="ind_mapa">
-      <span><img height="20" src="/img/icone-centro-coleta.png" />&nbsp;Centro de coleta</span>
-      <span><img height="20" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|59E369" />&nbsp;Demanda em local pré cadastrado</span>
-      <span><img height="20" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|5477EB" />&nbsp;Demanda em local informado pelo usuário</span>
-    </p>
+    <div class="ind_mapa">
+      <div class="ind-1">
+        <img height="30" src="/img/icone-centro-coleta.png" />&nbsp;Centros de coleta. Local cadastrado por nossa equipe
+      </div>
+      <img src="/img/separador_60.jpg" class="img-sep" />
+      <div class="ind-2">
+        <img height="30" src="/img/green-dot.png" />&nbsp;Um usuário do portal solicitou doações neste local. Este local foi pré cadastrado por nossa equipe
+      </div>
+      <img src="/img/separador_60.jpg" class="img-sep" />
+      <div class="ind-3">
+        <img height="30" src="/img/blue-dot.png" />&nbsp;Um usuário solitou doações neste local. Este local foi cadastrado pelo usuário.
+      </div>
+    </div>
   </div>
 
   <div class="dv-ranking">
@@ -74,24 +82,11 @@ echo $this->Html->script('/js/home.js');
   <div class="noFloat">&nbsp;</div>
   
   <div class="dv-controles-rodape">
-    <a href="https://github.com/lcskdc/SangueParaTodos" target="_blank" title="Fork this project"><img src="/img/github-logo.png" /></a>
-    <img class="separador" src="/img/separador_200.png" />
     <a href="https://www.facebook.com/sangueparatodos?fref=ts" target="_blank" title="Curta nossa página no Facebook"><img src="/img/img_logo_spt_facebook.png" /></a>
     <img class="separador" src="/img/separador_200.png" />
     <img src="/img/icon-responsivo.png" />
-  </div>
-  
-  <div class="alert alert-info">
-    <p>
-      Estamos quase! Esta é a reta final.<br />
-      Para concluir a disciplina de <strong>TCC-2</strong> devo entregar o resultado da <strong>validação do projeto</strong>, você poderia me ajudar respondendo o questionário de validação através do link abaixo
-    </p>
-    <p>
-      <a href="https://docs.google.com/forms/d/1M_SPxBEo_krshLdKyVPCHAM3OGGu0ukCKR6dF-XBEvo/viewform" target="_blank">https://docs.google.com/forms/d/1M_SPxBEo_krshLdKyVPCHAM3OGGu0ukCKR6dF-XBEvo/viewform</a>
-    </p>
-    <p>
-      Muito obrigado pelo apoio!
-    </p>
+    <img class="separador" src="/img/separador_200.png" />
+    <a href="https://github.com/lcskdc/SangueParaTodos" target="_blank" title="Fork this project"><img src="/img/github-logo.png" /></a>
   </div>
   
 </div>
@@ -101,17 +96,30 @@ echo $this->Html->script('/js/home.js');
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Sangue para todos</h4>
+        <h4 class="modal-title" id="myModalLabel">Definir local</h4>
       </div>
       <div class="modal-body">
         <p>
-          <input type="text" name="endereco" id="endereco" class="form-control" placeholder="Insira um endereço" />
+          <select title="Selecione o estado" id="hp-uf" class="form-control">
+            <option value="0">UF</option>
+            <?php foreach($estados as $id => $uf) { ?>
+              <option value="<?php echo $uf?>"><?php echo $uf?></option>
+            <?php } ?>
+          </select>
+          
+          <select id="hp-cidade" title="Selecione a cidade" disabled="disabled" class="form-control">
+            <option value="0">Selecione a cidade</option>
+          </select>
+          
         </p>
         <p>
-
+          <div class="noFloat">&nbsp;</div>
+          <input type="text" id="hp-endereco" class="form-control" placeholder="Insira um endereço" disabled="disabled" />
         </p>
       </div>
       <div class="modal-footer">
+        <a href="#self" class="hp-outro-end">Outro endereço</a>
+        <button type="button" id="hp-define-local" disabled="disabled" class="btn btn-success">Definir local</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Voltar</button>
       </div>
     </div>
@@ -124,7 +132,7 @@ echo $this->Html->script('/js/home.js');
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Sangue para todos</h4>
+        <h4 class="modal-title" id="myModalLabel">Sobre a GeoLocalização</h4>
       </div>
       <div class="modal-body">
         <p>
@@ -140,101 +148,4 @@ echo $this->Html->script('/js/home.js');
     </div>
   </div>
 </div>
-
-<div class="modal fade" id="modalInfoFormValidacao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Sangue para todos</h4>
-      </div>
-      <div class="modal-body">
-        <p>
-          Estamos quase! Esta é a reta final.<br />
-          Para concluir a disciplina de <strong>TCC-2</strong> devo entregar o resultado da <strong>validação do projeto</strong>, você poderia me ajudar respondendo o questionário de validação através do link abaixo
-        </p>
-        <p>
-          <a id="a-form-validacao" href="https://docs.google.com/forms/d/1M_SPxBEo_krshLdKyVPCHAM3OGGu0ukCKR6dF-XBEvo/viewform" target="_blank">https://docs.google.com/forms/d/1M_SPxBEo_krshLdKyVPCHAM3OGGu0ukCKR6dF-XBEvo/viewform</a>
-        </p>
-        <p>
-          Muito obrigado pelo apoio!
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script language="javascript">
-  $(function() {
-    
-    <?php if($mostra_validacao=='S'){ ?>
-      $('#modalInfoFormValidacao').modal();  
-    <?php } ?>
-    $('#a-form-validacao').click(function(){
-      $('#modalInfoFormValidacao').modal("hide");
-    });
-    
-    
-    $('[data-toggle="tooltip"]').tooltip()
-
-    $('.icon-minha-localizacao').click(function(){
-      getLocalizacao();
-    });
-
-    $('.icon-edit-localizacao').click(function() {
-      $('#modalAlteraEndereco').modal();
-      $('#endereco').val('');
-
-      $('#endereco').keyup(function(e) {
-        if (e.keyCode == 13) {
-          var endereco = $(this).val();
-          
-          buscaEndereco(endereco).done(function(data) {
-            if (data.status == "OK") {
-              $('#endereco').removeClass('localNaoEncontrado').prop("title", "Informe o endereço");
-              if (data.results.length > 1) {
-                $("#lista_locais").remove();
-                var lista = document.createElement('ul');
-                $.each(data.results, function(k, v) {
-                  $(lista).prop("id", "lista_locais");
-                  var g = v.geometry.location.lat + ',' + v.geometry.location.lng;
-                  $(lista).append('<li rel="' + g + '">' + v.formatted_address + '</li>');
-                  $("#modalAlteraEndereco .modal-body").append(lista);
-                });
-                $("#lista_locais li").click(function() {
-                  $('#endereco').val($(this).attr("rel"));
-                  var g = $('#endereco').val().split(",");
-                  $("#modalLocais").modal("hide");
-                  $("#lista_locais").remove();
-                  
-                  $.post('/Local/setLocalizacaoUsuario',{latitude: g[0], longitude: g[1]},function(){
-                    criarMapaLocalizacaoManual({latitude: g[0], longitude: g[1]});
-                  });
-                  
-                  $("#modalAlteraEndereco").modal("hide");
-                });
-              } else {
-                var loc = data.results[0].geometry.location;
-                $('#endereco').val(loc.lat + ',' + loc.lng);
-                
-                $.post('/Local/setLocalizacaoUsuario',{latitude: loc.lat, longitude: loc.lng},function(){
-                  criarMapaLocalizacaoManual({latitude: loc.lat, longitude: loc.lng});
-                });
-                
-                $("#modalAlteraEndereco").modal("hide");
-              }
-            } else if (data.status == "ZERO_RESULTS") {
-              $('#endereco').addClass('localNaoEncontrado').prop("title", "O endereço informado não foi encontrado");
-            }
-          });
-
-        }
-      });
-
-    });
-  });
-</script>
 

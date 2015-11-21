@@ -57,16 +57,36 @@
     margin:0 !important;
 }
 
-.ind_mapa {
+.ind_mapa * {
     color:#000;
-    font-size:12px;
-    text-align:center;
-    padding:4px 20px;
+    font-size:10px;
 }
 
-.ind_mapa span {
-    padding-left:15px;
+.ind_mapa .img-sep {
+    margin-top:-16px;
+}
+
+.ind_mapa div {
+    padding-top:6px;
+    display:inline-block;
     font-size:11px;
+    line-height:16px;
+}
+
+.ind_mapa .ind-1 {
+    width:24%;
+}
+
+.ind-2 {
+    width:41%;
+}
+
+.ind-3 {
+    width:32%;
+}
+
+.ind_mapa div img {
+    float:left;
 }
 
 .pontuacao {
@@ -392,4 +412,23 @@
 
 #resposta_captcha {
     max-width:300px;
+}
+
+#hp-uf {
+    float:left;
+    width:18%;
+}
+
+#hp-cidade {
+    float:left;
+    margin-left:10px;
+    width:80%;
+}
+
+.hp-outro-end {
+    display:none;
+}
+
+.required {
+    color:red;
 }

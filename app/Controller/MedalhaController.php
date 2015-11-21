@@ -107,14 +107,14 @@ class MedalhaController extends AppController {
       tipo.prazo - DATEDIFF(NOW(),evento.data) <= 0 AND
       (controle_envio.ultimo_envio IS NULL OR DATEDIFF(NOW(),controle_envio.ultimo_envio) >= 15)";
      */
-    $sql = "SELECT e1.id_colaborador, e1.data, c1.nome, c1.email, c1.telefone, c1.receber_sms, tipo.prazo, tipo.descricao, tipo.desc_msgs, ce1.ultimo_envio, DATEDIFF(NOW(),e1.data) AS dias
+    $sql = "SELECT e1.id_colaborador, e1.data, c1.nome, c1.email, c1.telefone, c1.receber_sms, e1.dias as prazo, tipo.descricao, tipo.desc_msgs, ce1.ultimo_envio, DATEDIFF(NOW(),e1.data) AS dias
             FROM eventos e1
               JOIN tipoevento tipo ON tipo.id = e1.id_evento
               JOIN colaboradores c1 ON c1.id = e1.id_colaborador
               LEFT JOIN controle_envio ce1 ON ce1.id_colaborador = e1.id_colaborador AND ce1.ultimo = 'S'
             WHERE
                 e1.ultimo = 'S' AND
-                /*tipo.prazo - DATEDIFF(NOW(),e1.data) <= 0 AND*/
+                e1.dias - DATEDIFF(NOW(),e1.data) <= 0 AND
                 (ce1.ultimo_envio IS NULL OR DATEDIFF(NOW(),ce1.ultimo_envio) >= 15)
             UNION ALL
             SELECT c2.id, NOW() AS data, c2.nome, c2.email, c2.telefone, c2.receber_sms, NULL as prazo, 'NOVO' as descricao, NULL as desc_msgs, NULL as ultimo_envio, 0 as dias
@@ -131,7 +131,7 @@ class MedalhaController extends AppController {
       if ($Envio[0]['descricao'] == 'NOVO') {
         $msg = "Oi " . substr($nomes[0], 0, 7) . ", uma nova doação espera por você.\n\nPortal Sangue Para Todos";
       } else {
-        $msg = "Oi " . substr($nomes[0], 0, 7) . ", uma nova doação espera por você.\n\nFaz " . $Envio[0]['dias'] . " dias que você " . $Envio[0]['desc_msgs'] . "\n\nPortal Sangue Para Todos";
+        $msg = "Oi " . substr($nomes[0], 0, 7) . ", uma nova doação espera por você.\n\nFaz " . $Envio[0]['dias'] . " dias que você registrou um evento em nosso portal.\n\nPortal Sangue Para Todos";
       }
 
       $telefone = $Envio[0]['telefone'];
@@ -162,7 +162,7 @@ class MedalhaController extends AppController {
       if ($Envio[0]['descricao'] == 'NOVO') {
         $msg = "Oi " . substr($nomes[0], 0, 7) . ", uma nova doação espera por você.\n\nCadastre suas ações através do portal Sangue para todos e nós iremos avisar quando você estiver apto a doar e salvar mais vidas!\n\nAcesse http://www.sangueparatodos.com.br/";
       } else {
-        $msg = "Oi " . substr($nomes[0], 0, 7) . ", uma nova doação espera por você.\n\nFaz " . $Envio[0]['dias'] . " dias que você " . $Envio[0]['desc_msgs'] . ".\n\nAcesse http://www.sangueparatodos.com.br/";
+        $msg = "Oi " . substr($nomes[0], 0, 7) . ", uma nova doação espera por você.\n\nFaz " . $Envio[0]['dias'] . " dias que você registrou um evento em nosso portal.\n\nAcesse http://www.sangueparatodos.com.br/";
       }
 
       $Email = new CakeEmail('gmail');
@@ -180,14 +180,14 @@ class MedalhaController extends AppController {
     $this->autoRender = false;
 
     $this->loadModel('ControleEnvio');
-    $sql = "SELECT e1.id_colaborador, e1.data, c1.nome, c1.email, c1.telefone, c1.receber_sms, tipo.prazo, tipo.descricao, tipo.desc_msgs, ce1.ultimo_envio, DATEDIFF(NOW(),e1.data) AS dias
+    $sql = "SELECT e1.id_colaborador, e1.data, c1.nome, c1.email, c1.telefone, c1.receber_sms, e1.dias as prazo, tipo.descricao, tipo.desc_msgs, ce1.ultimo_envio, DATEDIFF(NOW(),e1.data) AS dias
             FROM eventos e1
               JOIN tipoevento tipo ON tipo.id = e1.id_evento
               JOIN colaboradores c1 ON c1.id = e1.id_colaborador
               LEFT JOIN controle_envio ce1 ON ce1.id_colaborador = e1.id_colaborador AND ce1.ultimo = 'S'
             WHERE
                 e1.ultimo = 'S' AND
-                tipo.prazo - DATEDIFF(NOW(),e1.data) <= 0 AND
+                e1.dias - DATEDIFF(NOW(),e1.data) <= 0 AND
                 (ce1.ultimo_envio IS NULL OR DATEDIFF(NOW(),ce1.ultimo_envio) >= 15)
             UNION ALL
             SELECT c2.id, NOW() AS data, c2.nome, c2.email, c2.telefone, c2.receber_sms, NULL as prazo, 'NOVO' as descricao, NULL as desc_msgs, NULL as ultimo_envio, 0 as dias
@@ -203,9 +203,9 @@ class MedalhaController extends AppController {
       $nomes = explode(' ', $Envio[0]['nome']);
 
       if ($Envio[0]['descricao'] == 'NOVO') {
-        $msg = "Oi " . substr($nomes[0], 0, 7) . ", uma nova doação espera por você.\n\nPortal Sangue Para Todos";
+        $msg = "Oi " . substr($nomes[0], 0, 7) . ", uma nova doação espera por você.\n\nCadastre suas ações através do portal Sangue para todos e nós iremos avisar quando você estiver apto a doar e salvar mais vidas!\n\nAcesse http://www.sangueparatodos.com.br/";
       } else {
-        $msg = "Oi " . substr($nomes[0], 0, 7) . ", uma nova doação espera por você.\n\nFaz " . $Envio[0]['dias'] . " dias que você " . $Envio[0]['desc_msgs'] . "\n\nPortal Sangue Para Todos";
+        $msg = "Oi " . substr($nomes[0], 0, 7) . ", uma nova doação espera por você.\n\nFaz " . $Envio[0]['dias'] . " dias que você registrou um evento em nosso portal.\n\nAcesse http://www.sangueparatodos.com.br/";
       }
 
       $telefone = $Envio[0]['telefone'];
@@ -219,7 +219,6 @@ class MedalhaController extends AppController {
       $ce['id_colaborador'] = $id_colaborador;
       $ce['envio_email'] = 'S';
       $ce['envio_sms'] = $receber_sms;
-      echo '<pre>', print_r($ce), '</pre>';
       $this->ControleEnvio->save($ce);
       $id = $this->ControleEnvio->getLastInsertId();
 
@@ -252,14 +251,13 @@ class MedalhaController extends AppController {
   public function teste() {
     $this->autoRender = false;
     $this->layout = 'ajax';
-    $this->loadModel('Config');
-    $config = $this->Config->getConfSMS();
-    print_r($config);
+    $status = $this->envia_sms('Ola esta mensagem é teste','5197230660',1);
+    echo '>>>'.$status.'<br />';
   }
 
+  
   private function envia_sms($msg, $telefone, $id) {
     App::import("Vendor", "zenvia", array("file" => "zenvia/human_gateway_client_api/HumanClientMain.php"));
-    $config = array('conta' => 'lucaspo.rest', 'senha' => 'OrS13Mkev0');
 
     $this->loadModel('Config');
     $config = $this->Config->getConfSMS();

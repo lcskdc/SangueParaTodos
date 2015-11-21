@@ -44,6 +44,10 @@
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
     Router::connect('/politica-de-privacidade', array('controller' => 'Seguranca', 'action' => 'privacidade'));
     Router::connect('/termos-de-uso', array('controller' => 'Seguranca', 'action' => 'termo'));
+    Router::connect('/solicitar-doacao', array('controller' => 'Demanda', 'action' => 'cadastro'));
+    Router::connect('/cadastro', array('controller' => 'Login', 'action' => 'cadastro'));
+    Router::connect('/solicitacoes', array('controller' => 'Local', 'action' => 'demandas'));
+    
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

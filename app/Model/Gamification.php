@@ -28,7 +28,8 @@ class Gamification extends AppModel {
             FROM colaborador_pontuacao p
               JOIN colaboradores c ON c.id = p.colaborador_id
             GROUP BY c.id, c.nome, c.email
-            ORDER BY SUM(pontos) DESC';
+            ORDER BY SUM(pontos) DESC, c.id ASC
+            LIMIT 10';
     $res = $this->query($sql);
     foreach($res as $k => $v) {
       if(!empty($v['c']['id'])) {
@@ -69,6 +70,7 @@ class Gamification extends AppModel {
               MAX(dc.data) as ultima_data
             FROM demandas_compartilhadas dc
               JOIN colaboradores c ON c.id = dc.colaborador_id
+            GROUP BY dc.colaborador_id
             ORDER BY COUNT(dc.colaborador_id) DESC';
     $res = $this->query($sql);
     foreach($res as $k => $v) {

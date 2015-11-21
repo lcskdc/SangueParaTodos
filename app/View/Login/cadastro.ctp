@@ -16,12 +16,6 @@
     <div class="seta"><img src="/img/coracao_batendo.gif" />&nbsp;Seu Cadastro<span class="require require_float">* Campos obrigatorios</span></div>
   </div>
   
-  <?php if(!$id>0){ ?>
-  <p>
-    <input type="checkbox" id="aceite-termo-de-uso" value="S" />&nbsp;<label for="aceite-termo-de-uso">Eu li e concordo com os</label> <a href="/termos-de-uso" target="_blank">termos de uso</a>
-  </p>
-  <?php } ?>
-  
   <?php if ($id > 0) { ?>
     <div class="alinhadoDireita">
       <?php echo $email ?>
@@ -112,11 +106,14 @@
   
   <input type="hidden" name="id_social" value="<?php echo $id_social > 0 ? $id_social : '' ?>" />
   <input type="hidden" name="id" id="id" value="<?php echo $id > 0 ? $id : '' ?>" />
-
-  <div id="controles">
-    <hr />
-    <p>
-      <button class="btn btn-lg btn-success"<?php if(!$id>0){ ?> disabled="disabled"<?php } ?> id="btn-login">Salvar</button>
-    </p>
-  </div>
+  
+  <hr />
+  
+  <p align="center">
+    <?php if(!$id>0){ ?>
+    <input type="checkbox" id="aceite-termo-de-uso" value="S" />&nbsp;<label for="aceite-termo-de-uso">Eu li e concordo com os</label> <a href="/termos-de-uso" target="_blank">termos de uso</a><br />
+    <?php } ?>      
+    <button class="btn btn-lg btn-success"<?php if(!$id>0){ ?> disabled="disabled"<?php } ?> id="btn-cadastro">Salvar</button>
+  </p>
+  
 </form>

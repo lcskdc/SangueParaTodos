@@ -17,9 +17,6 @@
   </div>
   <?php if(!isset($idColaborador)) { ?>
   <p>
-    <input type="checkbox" id="aceite-termo-de-uso" value="S" />&nbsp;<label for="aceite-termo-de-uso">Eu li e concordo com os</label> <a href="/termos-de-uso" target="_blank">termos de uso</a>
-  </p>
-  <p>
     <label for="nome">Qual é o seu nome:<span class="require"> *</span></label>
     <input class="form-control" type="text" name="nmUsuario" id="nmUsuario" placeholder="Seu nome" value="<?php echo $nmUsuario?>" autofocus />
   </p>
@@ -64,19 +61,46 @@
       ?>
       <input type="checkbox" class="ckTipoSangue" id="ck_<?php echo $i?>" name="tipo_sanguineo[]"<?php echo in_array($value,$tipos_sangue)?' checked':''?> value="<?php echo $value?>">&nbsp;<label for="ck_<?php echo $i?>"><?php echo $value?>&nbsp;</label>
     <?php } ?>
-      <!--input type="checkbox" id="ck_0" name="tipo_sanguineo[]"<?php echo in_array('todos',$tipos_sangue)?' checked':''?> value="todos">&nbsp;<label for="ck_0">Todos&nbsp;</label-->
     </div>
   </div>
+  
   <?php if($local!="") { ?>
-    <div class="local emLinha" title="<?php echo $local?>">Local: <?php echo $local?><input type="hidden" id="local" name="local" value="<?php echo $local?>"><input type="hidden" id="posicao" name="posicao" value="<?php echo $posicao?>"></div>  
-  <?php } ?>
+    <div class="local emLinha" title="<?php echo $local?>">Local: <?php echo $local?>
+      <input type="hidden" id="local" name="local" value="<?php echo $local?>" />
+      <input type="hidden" id="posicao" name="posicao" value="<?php echo $posicao?>" />
+    </div>  
+  <?php } else { ?>
   <p>
     <span class="require"> *</span><a href="#self" id="adicionar_local"><img align="absmiddle" src="/img/icon-local.png" />&nbsp;Adicionar Local</a>
   </p>
-<hr />
-<p>
-  <label for="local">&nbsp;</label>
-  <input type="hidden" name="id_local" id="id_local" value="<?php echo $idLocal?>" />
-  <input type="submit" id="btn_cadastro" class="btn btn-lg btn-success"<?php echo !isset($idColaborador)?' disabled':''?> value="Cadastrar demanda" />
-</p>
+  <?php } ?>
+  
+  <div class="modal fade" id="modalLocaisProximos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Locais próximos indicados</h4>
+        </div>
+        <div class="modal-body">
+          <div class="list-group"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" id="btn_utiliza_local_manual">Nenhum destes</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <hr />
+  
+  <p align="center">
+    <?php if(!isset($idColaborador)) { ?>
+      <input type="checkbox" id="aceite-termo-de-uso" value="S" />&nbsp;<label for="aceite-termo-de-uso">Eu li e concordo com os</label> <a href="/termos-de-uso" target="_blank">termos de uso</a><br />
+    <?php } ?>
+    <input type="hidden" name="id_local" id="id_local" value="<?php echo $idLocal?>" />
+    <input type="hidden" name="verificado" id="verificado" value="<?php echo isset($verificado)?$verificado:'N'?>" />
+    <input type="submit" id="btn_cadastro" class="btn btn-lg btn-success"<?php echo !isset($idColaborador)?' disabled':''?> value="Cadastrar demanda" />
+  </p>
 </form>

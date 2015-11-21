@@ -2,6 +2,7 @@ var map;
 var markers = [];
 var latLng;
 var mapOptions;
+var apiKey = 'AIzaSyDkQM_9jthNzt81uCaLzpiu7lY39KWzGEw';
 
 /**
  * 
@@ -130,7 +131,8 @@ function adicionaInfoMapa(conteudo, marker) {
 }
 
 function buscaEndereco(endereco) {
-    var urlConsulta = "http://maps.google.com/maps/api/geocode/json?address=" + endereco + "&sensor=false";
+    //var urlConsulta = "https://maps.googleapis.com/maps/api/geocode/json?address=" + endereco + "&sensor=false&key="+apiKey;
+    var urlConsulta = 'https://maps.googleapis.com/maps/api/geocode/json?address='+endereco+'&sensor=false';
     return $.getJSON(urlConsulta, function(data) {
         return data.results;
     });
@@ -180,8 +182,8 @@ function adicionaMarcacao(obj) {
         var marker = new google.maps.Marker(opts);
         adicionaInfoMapa(obj.descricao, marker);
     } else if (obj.tipo == 'demanda') {
-        var cor = obj.id_local > 0 ? '59E369' : '5477EB';
-        opts.icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + cor;
+        var img = obj.id_local > 0 ? 'blue-dot.png' : 'green-dot.png';
+        opts.icon = '/img/' + img;
         marker = new google.maps.Marker(opts);
         var d = obj.validade.split(' ');
         d = d[0].split('-');

@@ -2,31 +2,31 @@
 <!--form name="login" id="form-login" class="forms" autocomplete="off" autocapitalize="off" autocorrect="off"-->
 <div id="form-login" class="forms">
   <div class="setaabaixo">
-    <div class="seta"><img src="/img/coracao_batendo.gif" />&nbsp;Login</div>
+    <div class="seta"><img src="/img/coracao_batendo.gif" />&nbsp;Área Interna</div>
   </div>
   <div class="alert alert-error alert-hide"></div>
   <div id="dv-login">
     <p>
-      <label for="email">Email: </label>
+      <label for="email"><img src="/img/mail-icon.png" align="absmiddle" /> Email <span class="required" title="Campo requerido">*</span></label>
       <input type="text" name="email" id="email" value="" class="form-control" autocomplete="off" autocapitalize="off" autocorrect="off" autofocus="autofocus" placeholder="E-mail" />
     </p>
     <p>
-      <label for="senha"><img src="/img/key_icon.gif" align="absmiddle" /> Senha</label>
+      <label for="senha"><img src="/img/key_icon.gif" align="absmiddle" /> Senha <span class="required" title="Campo requerido">*</span></label>
       <input type="password" name="senha" id="senha" value="" class="form-control" autocomplete="off" autocapitalize="off" autocorrect="off" autofocus="autofocus" placeholder="Senha" />
     </p>
   </div>
 
-  <hr />
-
   <div id="controles">
-    <button id="btn-login" class="btn btn-lg btn-success">Login</button>
+    <button id="btn-login" class="btn btn-lg btn-success">Acessar</button>
+    <a class="a-esqueceu-senha" href="/Login/esquecisenha">Esqueceu sua senha?</a>
+    <hr />
     <!--p id="esqueci-senha">
       <a href="/Login/esquecisenha">Esqueceu sua senha</a>
     </p-->
-    <button id="btn-login-facebook" class="btn btn-primary"><img src="/img/icon-facebook.png" />Acessar via Facebook</button>
-    <button id="btn-login-gplus" class="btn btn-danger"><img src="/img/icon-gplus.png" />Acessar via Google+</button>
-    <button id="btn-login-twitter" class="btn btn-info"><img src="/img/icon_twitter.png" />Acessar via Twitter</button>
-    <a class="a-esqueceu-senha" href="/Login/esquecisenha">Esqueceu sua senha?</a>
+    <button id="btn-login-facebook" class="btn btn-primary"><img src="/img/icon-facebook.png" />Acessar com Facebook</button>
+    <button id="btn-login-gplus" class="btn btn-danger"><img src="/img/icon-gplus.png" />Acessar com Google+</button>
+    <button id="btn-login-twitter" class="btn btn-info"><img src="/img/icon_twitter.png" />Acessar com Twitter</button>
+    
   </div>
 </div>
 <!--/form-->
@@ -46,7 +46,7 @@
         Usuário e/ou senha inválidos.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
+        <button type="button" class="btn btn-default" id="btn-voltar" data-dismiss="modal">Voltar</button>
         <a href="/Login/esquecisenha" type="button" class="btn btn-primary">Esqueceu sua senha?</a>
       </div>
     </div>
@@ -73,6 +73,10 @@
 
 <script language="javascript">
   $(function() {
+
+    $('#btn-voltar').click(function(){
+      $('#senha').select().focus();
+    });
 
     $('[data-toggle="tooltip"]').tooltip();
     $('#email, #senha').val("");
